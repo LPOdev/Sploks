@@ -20,6 +20,10 @@ def displayContractDetails(contract_id):
     w_contract_details.setWindowTitle(f"Contrat {contract.id} du {contract.creation_date} avec {contract.firstname} {contract.lastname}")
     w_contract_details.show()
 
+def displayForm():
+    global wContractForm
+    wContractForm = uic.loadUi('views/contract_form.ui')
+    wContractForm.show()
 
 def insertDetails():
     """
