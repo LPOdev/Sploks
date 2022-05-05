@@ -31,7 +31,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="2" column="0" colspan="4">
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="customers_table">
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
@@ -62,6 +62,11 @@
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
       </attribute>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
       <column>
        <property name="text">
         <string>Nom</string>
@@ -163,9 +168,6 @@
         </property>
         <property name="styleSheet">
          <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
-        </property>
-        <property name="inputMethodHints">
-         <set>Qt::ImhNone</set>
         </property>
         <property name="text">
          <string/>

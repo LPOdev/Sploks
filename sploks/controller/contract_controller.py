@@ -3,6 +3,7 @@ import datetime
 import sys
 
 from model.contract import Contract
+from model.customer import Customer
 
 
 def displayContractDetails(contract_id):
@@ -22,8 +23,23 @@ def displayContractDetails(contract_id):
 
 def displayForm():
     global wContractForm
+
     wContractForm = uic.loadUi('views/contract_form.ui')
+    form_load_customers(Customer.all())
+
     wContractForm.show()
+
+def form_load_customers(customers):
+
+    wContractForm.customers_table.setColumnHidden(0, True)
+
+    for row_number, customer in enumerate(customers): 
+        wContractForm.customers_table.insertRow(row_number)
+        for column_number, data in enumerate(customer):
+            cell = QtWidgets.QTableWidgetItem(str(data))
+            wContractForm.customers_table.setItem(row_number, column_number, cell)
+
+    
 
 def insertDetails():
     """
