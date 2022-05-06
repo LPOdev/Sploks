@@ -41,8 +41,10 @@ def insertDetails():
 
 def displayForm():
     global wContractForm
+    global tbl_customers
 
     wContractForm = uic.loadUi('views/contract_form.ui')
+    tbl_customers = wContractForm.customers_table
     form_load_customers(Customer.all())
 
     wContractForm.lbl_name.textChanged.connect(filter_list)
@@ -54,17 +56,19 @@ def displayForm():
     wContractForm.lbl_phone.textChanged.connect(filter_list)
     wContractForm.lbl_email.textChanged.connect(filter_list)
 
+    tbl_customers.cellClicked.connect(load_customer)
+
     wContractForm.show()
 
 def form_load_customers(customers):
 
-    wContractForm.customers_table.setColumnHidden(0, True)
+    tbl_customers.setColumnHidden(0, True)
 
     for row_number, customer in enumerate(customers): 
-        wContractForm.customers_table.insertRow(row_number)
+        tbl_customers.insertRow(row_number)
         for column_number, data in enumerate(customer):
             cell = QtWidgets.QTableWidgetItem(str(data))
-            wContractForm.customers_table.setItem(row_number, column_number, cell)
+            tbl_customers.setItem(row_number, column_number, cell)
 
 def filter_list():
     name = wContractForm.lbl_name.text()
@@ -80,18 +84,18 @@ def filter_list():
     #         It then loops through the columns of the table.
     #         If the text of the cell contains the filter text, then the row is shown.
     #         Otherwise, the row is hidden.
-    for x in range(wContractForm.customers_table.rowCount()):
+    for x in range(tbl_customers.rowCount()):
         match = False
         
-        for y in range(wContractForm.customers_table.columnCount()):
-            found_name = wContractForm.customers_table.item(x,1)
-            found_firstname = wContractForm.customers_table.item(x,2)
-            found_address = wContractForm.customers_table.item(x,3)
-            found_npa = wContractForm.customers_table.item(x,4)
-            found_town = wContractForm.customers_table.item(x,5)
-            found_phonefix = wContractForm.customers_table.item(x,6)
-            found_phone = wContractForm.customers_table.item(x,8)
-            found_email = wContractForm.customers_table.item(x,7)
+        for y in range(tbl_customers.columnCount()):
+            found_name = tbl_customers.item(x,1)
+            found_firstname = tbl_customers.item(x,2)
+            found_address = tbl_customers.item(x,3)
+            found_npa = tbl_customers.item(x,4)
+            found_town = tbl_customers.item(x,5)
+            found_phonefix = tbl_customers.item(x,6)
+            found_phone = tbl_customers.item(x,8)
+            found_email = tbl_customers.item(x,7)
 
             lower_name = (found_name.text()).lower()
             lower_firstname = (found_firstname.text()).lower()
@@ -106,4 +110,23 @@ def filter_list():
                 match = True
                 break
                 
-        wContractForm.customers_table.setRowHidden(x, not match)
+        tbl_customers.setRowHidden(x, not match)
+
+
+def load_customer():
+
+    clicked_id = tbl_customers.item(tbl_customers.currentRow(), 0).text()
+
+    customer = Customer()
+    customer.load(clicked_id)
+
+    name = wContractForm.lbl_name.setText(str(customer.lastname))
+    firstname = wContractForm.lbl_firstname.setText(str(customer.firstname))
+    address = wContractForm.lbl_address.setText(str(customer.address))
+    npa = wContractForm.lbl_npa.setText(str(customer.npa))
+    town = wContractForm.lbl_town.setText(str(customer.town))
+    phonefix = wContractForm.lbl_phonefix.setText(str(customer.phone))
+    phone = wContractForm.lbl_phone.setText(str(customer.mobile))
+    email = wContractForm.lbl_email.setText(str(customer.email))
+
+    tbl_customers.setHidden(True)
