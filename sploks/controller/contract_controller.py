@@ -90,8 +90,8 @@ def filter_list():
             found_npa = wContractForm.customers_table.item(x,4)
             found_town = wContractForm.customers_table.item(x,5)
             found_phonefix = wContractForm.customers_table.item(x,6)
-            found_phone = wContractForm.customers_table.item(x,7)
-            found_email = wContractForm.customers_table.item(x,8)
+            found_phone = wContractForm.customers_table.item(x,8)
+            found_email = wContractForm.customers_table.item(x,7)
 
             lower_name = (found_name.text()).lower()
             lower_firstname = (found_firstname.text()).lower()
