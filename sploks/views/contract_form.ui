@@ -391,6 +391,17 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lbl_name</tabstop>
+  <tabstop>lbl_address</tabstop>
+  <tabstop>lbl_firstname</tabstop>
+  <tabstop>lbl_npa</tabstop>
+  <tabstop>lbl_phonefix</tabstop>
+  <tabstop>lbl_town</tabstop>
+  <tabstop>lbl_phone</tabstop>
+  <tabstop>lbl_email</tabstop>
+  <tabstop>customers_table</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
