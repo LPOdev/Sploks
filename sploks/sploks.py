@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, QtGui, uic
 import sys
 from controller import menu_controller as menu
 
@@ -13,6 +13,7 @@ class Ui(QtWidgets.QMainWindow):
         super(Ui, self).__init__()  # Call the inherited classes __init__ method
         menu.displayMenu(self)  # Display the Mainmenu of Sploks
         self.setWindowTitle("Sploks")   # Set the window title to Sploks
+        self.setWindowIcon(QtGui.QIcon('views/res/icon.png'))
         self.show()  # Display the app
 
 

@@ -34,8 +34,8 @@ def loadItems(stock):
     w_stock.tableStock.cellClicked.connect(itemDetails)   
 
     ### Shortcuts ###
-    shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), w_stock)    # Create the shortcut
-    shrtClients.activated.connect(shortcut_used)   # Connect the shortcut
+    shrtDetails = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), w_stock)    # Create the shortcut
+    shrtDetails.activated.connect(shortcut_used)   # Connect the shortcut
     ### Shortcuts ###
 
     w_stock.lblSearchBox.textChanged.connect(filter_list)
