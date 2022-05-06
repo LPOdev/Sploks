@@ -1,5 +1,5 @@
 import email
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui
 import datetime
 import sys
 
@@ -58,6 +58,11 @@ def displayForm():
 
     tbl_customers.cellClicked.connect(load_customer)
 
+    ### Shortcuts ###
+    shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), wContractForm)    # Create the shortcut
+    shrtClients.activated.connect(shortcut_used)   # Connect the shortcut
+    ### Shortcuts ###
+
     wContractForm.show()
 
 def form_load_customers(customers):
@@ -112,6 +117,9 @@ def filter_list():
                 
         tbl_customers.setRowHidden(x, not match)
 
+def shortcut_used():
+    if(tbl_customers.item(tbl_customers.currentRow(), 0) != None):
+        load_customer()
 
 def load_customer():
 
