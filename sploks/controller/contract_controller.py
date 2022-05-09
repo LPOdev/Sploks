@@ -1,7 +1,5 @@
 import email
 from PyQt5 import QtWidgets, uic, QtGui
-import datetime
-import sys
 
 from model.contract import Contract
 from model.customer import Customer
@@ -76,45 +74,49 @@ def form_load_customers(customers):
             tbl_customers.setItem(row_number, column_number, cell)
 
 def filter_list():
-    name = wContractForm.lbl_name.text()
-    firstname = wContractForm.lbl_firstname.text()
-    address = wContractForm.lbl_address.text()
-    npa = wContractForm.lbl_npa.text()
-    town = wContractForm.lbl_town.text()
-    phonefix = wContractForm.lbl_phonefix.text()
-    phone = wContractForm.lbl_phone.text()
-    email = wContractForm.lbl_email.text()
+    search_client = {
+        "name": (wContractForm.lbl_name.text()).lower(),
+        "firstname": (wContractForm.lbl_firstname.text()).lower(),
+        "address": (wContractForm.lbl_address.text()).lower(),
+        "npa": (wContractForm.lbl_npa.text()).lower(),
+        "town": (wContractForm.lbl_town.text()).lower(),
+        "phonefix": (wContractForm.lbl_phonefix.text()).lower(),
+        "email": (wContractForm.lbl_email.text()).lower(),
+        "phone": (wContractForm.lbl_phone.text()).lower()
+        
+    }
+    match = False
 
-    # The above code is a loop that loops through the rows of the table.
-    #         It then loops through the columns of the table.
-    #         If the text of the cell contains the filter text, then the row is shown.
-    #         Otherwise, the row is hidden.
+    found_client = {}
+
     for x in range(tbl_customers.rowCount()):
-        match = False
         
         for y in range(tbl_customers.columnCount()):
-            found_name = tbl_customers.item(x,1)
-            found_firstname = tbl_customers.item(x,2)
-            found_address = tbl_customers.item(x,3)
-            found_npa = tbl_customers.item(x,4)
-            found_town = tbl_customers.item(x,5)
-            found_phonefix = tbl_customers.item(x,6)
-            found_phone = tbl_customers.item(x,8)
-            found_email = tbl_customers.item(x,7)
+            match y:
+                case 1:
+                    found_client['name'] = (tbl_customers.item(x, y).text()).lower()
+                case 2:
+                    found_client['firstname'] = (tbl_customers.item(x, y).text()).lower()
+                case 3:
+                    found_client['address'] = (tbl_customers.item(x, y).text()).lower()
+                case 4:
+                    found_client['npa'] = (tbl_customers.item(x, y).text()).lower()
+                case 5:
+                    found_client['town'] = (tbl_customers.item(x, y).text()).lower()
+                case 6:
+                    found_client['phonefix'] = (tbl_customers.item(x, y).text()).lower()
+                case 7:
+                    found_client['email'] = (tbl_customers.item(x, y).text()).lower()
+                case 8:
+                    found_client['phone'] = (tbl_customers.item(x, y).text()).lower()
 
-            lower_name = (found_name.text()).lower()
-            lower_firstname = (found_firstname.text()).lower()
-            lower_address = (found_address.text()).lower()
-            lower_npa = (found_npa.text()).lower()
-            lower_town = (found_town.text()).lower()
-            lower_phonefix = (found_phonefix.text()).lower()
-            lower_phone = (found_phone.text()).lower()
-            lower_email = (found_email.text()).lower()
-
-            if lower_name.find(name.lower()) != -1 and lower_firstname.find(firstname.lower()) != -1 and lower_address.find(address.lower()) != -1 and lower_npa.find(npa.lower()) != -1 and lower_town.find(town.lower()) != -1 and lower_phonefix.find(phonefix.lower()) != -1 and lower_phone.find(phone.lower()) != -1 and lower_email.find(email.lower()) != -1 :
+        for f, s in zip(found_client, search_client):
+            if found_client[f].find(search_client[s]) != -1:
                 match = True
+            else:
+                match = False
                 break
-                
+        
         tbl_customers.setRowHidden(x, not match)
 
 def shortcut_used():
