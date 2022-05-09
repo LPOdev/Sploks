@@ -110,14 +110,14 @@ def filter_list():
                 case 8:
                     found_client['phone'] = (tbl_customers.item(x, y).text()).lower()
 
-            for f, s in zip(found_client, search_client):
-                if found_client[f].find(search_client[s]) != -1:
-                    match = True
-                else:
-                    match = False
-                    break
-            
-            tbl_customers.setRowHidden(x, not match)
+        for f, s in zip(found_client, search_client):
+            if found_client[f].find(search_client[s]) != -1:
+                match = True
+            else:
+                match = False
+                break
+        
+        tbl_customers.setRowHidden(x, not match)
 
 def shortcut_used():
     if(tbl_customers.item(tbl_customers.currentRow(), 0) != None):
