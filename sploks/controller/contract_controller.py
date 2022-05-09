@@ -12,10 +12,13 @@ def displayContractDetails(contract_id):
     :param contract_id: The ID of the contract to display
     """
     global w_contract_details
-    w_contract_details = uic.loadUi('views/contract_inspector.ui')
     global contract
+    
     contract = Contract()
     contract.load(contract_id)
+
+    w_contract_details = uic.loadUi('views/contract_inspector.ui')
+    
     insertDetails()
     w_contract_details.setWindowTitle(f"Contrat {contract.id} du {contract.creation_date} avec {contract.firstname} {contract.lastname}")
     w_contract_details.show()    
@@ -40,10 +43,17 @@ def insertDetails():
 def displayForm():
     global wContractForm
     global tbl_customers
+    global tbl_items
 
     wContractForm = uic.loadUi('views/contract_form.ui')
+
     tbl_customers = wContractForm.customers_table
+    tbl_items = wContractForm.equipement_table
     form_load_customers(Customer.all())
+
+    # Hide Item Form
+    tbl_items.setHidden(True)
+    wContractForm.label_21.setHidden(True)
 
     wContractForm.lbl_name.textChanged.connect(filter_list)
     wContractForm.lbl_firstname.textChanged.connect(filter_list)
@@ -124,7 +134,7 @@ def shortcut_used():
         load_customer()
 
 def load_customer():
-
+    openItemslist()
     clicked_id = tbl_customers.item(tbl_customers.currentRow(), 0).text()
 
     customer = Customer()
@@ -139,4 +149,14 @@ def load_customer():
     phone = wContractForm.lbl_phone.setText(str(customer.mobile))
     email = wContractForm.lbl_email.setText(str(customer.email))
 
-    tbl_customers.setHidden(True)
+    """tbl_customers.setHidden(True)
+    tbl_items.setHidden(False)
+    wContractForm.label_21.setHidden(False)
+    """
+    openItemslist()
+
+
+def openItemslist():
+    wlisttesting = uic.loadUi('views/contract_items.ui')
+
+    wlisttesting.show()
