@@ -1,8 +1,8 @@
-import email
-from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5 import QtWidgets, QtGui, uic
 
 from model.contract import Contract
 from model.customer import Customer
+from model.item import Item
 
 
 def displayContractDetails(contract_id):
@@ -65,7 +65,7 @@ def displayForm():
     wContractForm.lbl_email.textChanged.connect(filter_list)
 
     tbl_customers.cellClicked.connect(load_customer)
-
+    
     ### Shortcuts ###
     shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), wContractForm)    # Create the shortcut
     shrtClients.activated.connect(shortcut_used)   # Connect the shortcut
@@ -118,29 +118,42 @@ def shortcut_used():
         load_customer()
 
 def load_customer():
-    openItemslist()
     clicked_id = tbl_customers.item(tbl_customers.currentRow(), 0).text()
 
     customer = Customer()
     customer.load(clicked_id)
 
-    name = wContractForm.lbl_name.setText(str(customer.lastname))
-    firstname = wContractForm.lbl_firstname.setText(str(customer.firstname))
-    address = wContractForm.lbl_address.setText(str(customer.address))
-    npa = wContractForm.lbl_npa.setText(str(customer.npa))
-    town = wContractForm.lbl_town.setText(str(customer.town))
-    phonefix = wContractForm.lbl_phonefix.setText(str(customer.phone))
-    phone = wContractForm.lbl_phone.setText(str(customer.mobile))
-    email = wContractForm.lbl_email.setText(str(customer.email))
+    wContractForm.lbl_name.setText(str(customer.lastname))
+    wContractForm.lbl_firstname.setText(str(customer.firstname))
+    wContractForm.lbl_address.setText(str(customer.address))
+    wContractForm.lbl_npa.setText(str(customer.npa))
+    wContractForm.lbl_town.setText(str(customer.town))
+    wContractForm.lbl_phonefix.setText(str(customer.phone))
+    wContractForm.lbl_phone.setText(str(customer.mobile))
+    wContractForm.lbl_email.setText(str(customer.email))
 
-    """tbl_customers.setHidden(True)
+    tbl_customers.setHidden(True)
     tbl_items.setHidden(False)
     wContractForm.label_21.setHidden(False)
-    """
+
     openItemslist()
 
-
 def openItemslist():
-    wlisttesting = uic.loadUi('views/contract_items.ui')
+    global wlistItems
+    wlistItems = uic.loadUi('views/contract_items.ui')
+    form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock"))
 
-    wlisttesting.show()
+    wlistItems.show()
+
+def form_load_items(list_items):
+    wlistItems.tbl_items.setColumnHidden(0, True)
+
+    for row_number, items in enumerate(list_items):
+        wlistItems.tbl_items.insertRow(row_number)
+
+        for column_number, data in enumerate(items):
+            cell = QtWidgets.QTableWidgetItem(str(data))
+            wlistItems.tbl_items.setItem(row_number, column_number, cell)
+    
+    wlistItems.tbl_items.sortItems(1)
+
