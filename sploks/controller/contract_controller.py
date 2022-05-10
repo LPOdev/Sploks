@@ -132,6 +132,19 @@ def load_customer():
     wContractForm.lbl_phone.setText(str(customer.mobile))
     wContractForm.lbl_email.setText(str(customer.email))
 
+    wContractForm.lbl_name.setReadOnly(True)
+    wContractForm.lbl_firstname.setReadOnly(True)
+    wContractForm.lbl_name.setStyleSheet("QLineEdit"
+                    "{"
+                    "background-color : rgba(0,0,0,0);"
+                    "border: 0px"
+                    "}")
+    wContractForm.lbl_firstname.setStyleSheet("QLineEdit"
+                    "{"
+                    "background-color : rgba(0,0,0,0);"
+                    "border: 0px"
+                    "}")
+
     tbl_customers.setHidden(True)
     tbl_items.setHidden(False)
     wContractForm.label_21.setHidden(False)
