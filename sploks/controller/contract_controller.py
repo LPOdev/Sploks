@@ -152,34 +152,51 @@ def load_customer():
 
 def openItemslist():
     global wlistItems
+    global table_items
     wlistItems = uic.loadUi('views/contract_items.ui')
+
+    table_items = wlistItems.tbl_items
     form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock"))
 
     wlistItems.lbl_serial.textChanged.connect(filter_list_items)
+    table_items.cellClicked.connect(load_item_info)
 
     wlistItems.show()
 
 def form_load_items(list_items):
-    wlistItems.tbl_items.setColumnHidden(0, True)
+    table_items.setColumnHidden(0, True)
 
     for row_number, items in enumerate(list_items):
-        wlistItems.tbl_items.insertRow(row_number)
+        table_items.insertRow(row_number)
 
         for column_number, data in enumerate(items):
             cell = QtWidgets.QTableWidgetItem(str(data))
-            wlistItems.tbl_items.setItem(row_number, column_number, cell)
+            table_items.setItem(row_number, column_number, cell)
     
-    wlistItems.tbl_items.sortItems(1)
+    table_items.sortItems(1)
 
 def filter_list_items():
     itemNb = (wlistItems.lbl_serial.text()).lower()
 
-    for x in range(wlistItems.tbl_items.rowCount()):
+    for x in range(table_items.rowCount()):
         match = False
-        found_item = (wlistItems.tbl_items.item(x, 1).text()).lower()
+        found_item = (table_items.item(x, 1).text()).lower()
 
         if found_item.find(itemNb) != -1:
             match = True 
                 
-        wlistItems.tbl_items.setRowHidden(x, not match)
+        table_items.setRowHidden(x, not match)
+
+def load_item_info():
+    clicked_id = table_items.item(table_items.currentRow(), 0).text()
+
+    item = Item()
+    item.load(clicked_id)
+
+    wlistItems.lbl_serial.setText(str(item.itemnb))
+    wlistItems.lbl_brand.setText(str(item.brand))
+    wlistItems.lbl_model.setText(str(item.model))
+    wlistItems.lbl_stock.setText(str(item.stock))
+    wlistItems.lbl_code.setText(str(item.article_number))
+    wlistItems.lbl_price.setText(str(item.returned))
 
