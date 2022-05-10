@@ -1,5 +1,4 @@
 from PyQt5 import QtWidgets, QtGui, uic
-
 from model.contract import Contract
 from model.customer import Customer
 from model.item import Item
@@ -156,6 +155,8 @@ def openItemslist():
     wlistItems = uic.loadUi('views/contract_items.ui')
     form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock"))
 
+    wlistItems.lbl_serial.textChanged.connect(filter_list_items)
+
     wlistItems.show()
 
 def form_load_items(list_items):
@@ -169,4 +170,16 @@ def form_load_items(list_items):
             wlistItems.tbl_items.setItem(row_number, column_number, cell)
     
     wlistItems.tbl_items.sortItems(1)
+
+def filter_list_items():
+    itemNb = (wlistItems.lbl_serial.text()).lower()
+
+    for x in range(wlistItems.tbl_items.rowCount()):
+        match = False
+        found_item = (wlistItems.tbl_items.item(x, 1).text()).lower()
+
+        if found_item.find(itemNb) != -1:
+            match = True 
+                
+        wlistItems.tbl_items.setRowHidden(x, not match)
 

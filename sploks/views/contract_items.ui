@@ -407,6 +407,18 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lbl_serial</tabstop>
+  <tabstop>lbl_brand</tabstop>
+  <tabstop>lbl_model</tabstop>
+  <tabstop>lbl_stock</tabstop>
+  <tabstop>lbl_code</tabstop>
+  <tabstop>drp_time</tabstop>
+  <tabstop>drp_state</tabstop>
+  <tabstop>lbl_price</tabstop>
+  <tabstop>btn_pushRight</tabstop>
+  <tabstop>tbl_items</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
