@@ -84,50 +84,34 @@ def form_load_customers(customers):
             tbl_customers.setItem(row_number, column_number, cell)
 
 def filter_list():
-    search_client = {
-        "name": (wContractForm.lbl_name.text()).lower(),
-        "firstname": (wContractForm.lbl_firstname.text()).lower(),
-        "address": (wContractForm.lbl_address.text()).lower(),
-        "npa": (wContractForm.lbl_npa.text()).lower(),
-        "town": (wContractForm.lbl_town.text()).lower(),
-        "phonefix": (wContractForm.lbl_phonefix.text()).lower(),
-        "email": (wContractForm.lbl_email.text()).lower(),
-        "phone": (wContractForm.lbl_phone.text()).lower()
-        
-    }
+    search_client = [
+        (wContractForm.lbl_name.text()).lower(), 
+        (wContractForm.lbl_firstname.text()).lower(),
+        (wContractForm.lbl_address.text()).lower(),
+        (wContractForm.lbl_npa.text()).lower(),
+        (wContractForm.lbl_town.text()).lower(),
+        (wContractForm.lbl_phonefix.text()).lower(),
+        (wContractForm.lbl_email.text()).lower(),
+        (wContractForm.lbl_phone.text()).lower()
+    ]
     match = False
-
-    found_client = {}
+    found_client = []
 
     for x in range(tbl_customers.rowCount()):
-        
         for y in range(tbl_customers.columnCount()):
-            match y:
-                case 1:
-                    found_client['name'] = (tbl_customers.item(x, y).text()).lower()
-                case 2:
-                    found_client['firstname'] = (tbl_customers.item(x, y).text()).lower()
-                case 3:
-                    found_client['address'] = (tbl_customers.item(x, y).text()).lower()
-                case 4:
-                    found_client['npa'] = (tbl_customers.item(x, y).text()).lower()
-                case 5:
-                    found_client['town'] = (tbl_customers.item(x, y).text()).lower()
-                case 6:
-                    found_client['phonefix'] = (tbl_customers.item(x, y).text()).lower()
-                case 7:
-                    found_client['email'] = (tbl_customers.item(x, y).text()).lower()
-                case 8:
-                    found_client['phone'] = (tbl_customers.item(x, y).text()).lower()
+            if y > 0:
+                found_client.append((tbl_customers.item(x, y).text()).lower())
 
-        for f, s in zip(found_client, search_client):
-            if found_client[f].find(search_client[s]) != -1:
+        for f in range(len(search_client)):           
+            if found_client[f].find(search_client[f]) != -1:
                 match = True
             else:
                 match = False
+                
                 break
-        
+
         tbl_customers.setRowHidden(x, not match)
+        found_client.clear()
 
 def shortcut_used():
     if(tbl_customers.item(tbl_customers.currentRow(), 0) != None):
