@@ -1,7 +1,9 @@
 from PyQt5 import QtWidgets, QtGui, uic
+
 from model.contract import Contract
 from model.customer import Customer
 from model.item import Item
+from model.state import State
 
 
 def displayContractDetails(contract_id):
@@ -154,8 +156,8 @@ def openItemslist():
     global wlistItems
     global table_items
     wlistItems = uic.loadUi('views/contract_items.ui')
-
     table_items = wlistItems.tbl_items
+
     form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock"))
 
     wlistItems.lbl_serial.textChanged.connect(filter_list_items)
@@ -164,6 +166,14 @@ def openItemslist():
     wlistItems.show()
 
 def form_load_items(list_items):
+    durations = [
+        "J - Journée",
+        "J2 - 2 Jours",
+        "S - Semaine",
+        "W - Weekend",
+        "Z - Saison"
+    ]
+
     table_items.setColumnHidden(0, True)
 
     for row_number, items in enumerate(list_items):
@@ -172,7 +182,13 @@ def form_load_items(list_items):
         for column_number, data in enumerate(items):
             cell = QtWidgets.QTableWidgetItem(str(data))
             table_items.setItem(row_number, column_number, cell)
-    
+
+    for st in State.all():
+        wlistItems.drp_state.addItem(st[2])
+
+    for t in durations:
+        wlistItems.drp_time.addItem(t)    
+
     table_items.sortItems(1)
 
 def filter_list_items():
@@ -192,6 +208,8 @@ def load_item_info():
 
     item = Item()
     item.load(clicked_id)
+
+    wlistItems.drp_state.setCurrentIndex(item.gear_state_id - 1)
 
     wlistItems.lbl_serial.setText(str(item.itemnb))
     wlistItems.lbl_brand.setText(str(item.brand))
