@@ -225,7 +225,6 @@ def reset_form():
     print('reset_form')
 
 def add_item():
-    print("add_item")
 
     description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
 
@@ -237,7 +236,6 @@ def add_item():
         wlistItems.drp_state.currentText(),
         wlistItems.lbl_price.text()
     ]
-    print("Chosen Item: ", chosen_item)
 
     currentRowCount = tbl_items.rowCount() #necessary even when there are no rows in the table
     tbl_items.insertRow(currentRowCount)
