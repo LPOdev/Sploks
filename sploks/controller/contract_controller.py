@@ -77,6 +77,8 @@ def displayForm():
 def form_load_customers(customers):
 
     tbl_customers.setColumnHidden(0, True)
+    tbl_customers.horizontalHeader().setSectionResizeMode(1)
+    tbl_items.horizontalHeader().setSectionResizeMode(1)
 
     for row_number, customer in enumerate(customers): 
         tbl_customers.insertRow(row_number)
@@ -164,9 +166,12 @@ def openItemslist():
     table_items.cellClicked.connect(load_item_info)
     wlistItems.btn_pushRight.clicked.connect(add_item)
 
+    table_items.horizontalHeader().setSectionResizeMode(1)
+
     wlistItems.show()
 
 def form_load_items(list_items):
+    global durations
     durations = [
         "J - Journée",
         "J2 - 2 Jours",
@@ -221,9 +226,6 @@ def load_item_info():
     wlistItems.lbl_code.setText(str(item.article_number))
     wlistItems.lbl_price.setText(str(item.returned))
 
-def reset_form():
-    print('reset_form')
-
 def add_item():
 
     description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
@@ -237,9 +239,22 @@ def add_item():
         wlistItems.lbl_price.text()
     ]
 
-    currentRowCount = tbl_items.rowCount() #necessary even when there are no rows in the table
+    currentRowCount = tbl_items.rowCount()
     tbl_items.insertRow(currentRowCount)
 
     for column_number in range(tbl_items.columnCount()):
         cell = QtWidgets.QTableWidgetItem(chosen_item[column_number])
         tbl_items.setItem(currentRowCount, column_number, cell)
+    
+    table_items.removeRow(table_items.currentRow())
+    reset_form()
+
+
+def reset_form():
+    wlistItems.drp_state.setCurrentIndex(0)
+    wlistItems.lbl_serial.setText("")
+    wlistItems.lbl_brand.setText("")
+    wlistItems.lbl_model.setText("")
+    wlistItems.lbl_stock.setText("")
+    wlistItems.lbl_code.setText("")
+    wlistItems.lbl_price.setText("")
