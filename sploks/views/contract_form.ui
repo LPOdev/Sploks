@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1006</width>
-    <height>602</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -483,6 +483,19 @@
         <string>Prix</string>
        </property>
       </column>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lbl_price">
+      <property name="styleSheet">
+       <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Prix: 0.00 CHF</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
      </widget>
     </item>
    </layout>
