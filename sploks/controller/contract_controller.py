@@ -162,6 +162,7 @@ def openItemslist():
 
     wlistItems.lbl_serial.textChanged.connect(filter_list_items)
     table_items.cellClicked.connect(load_item_info)
+    wlistItems.btn_pushRight.clicked.connect(add_item)
 
     wlistItems.show()
 
@@ -189,6 +190,7 @@ def form_load_items(list_items):
     for t in durations:
         wlistItems.drp_time.addItem(t)    
 
+    wlistItems.drp_time.setCurrentIndex(len(durations) - 1)
     table_items.sortItems(1)
 
 def filter_list_items():
@@ -204,8 +206,9 @@ def filter_list_items():
         table_items.setRowHidden(x, not match)
 
 def load_item_info():
+    global item
     clicked_id = table_items.item(table_items.currentRow(), 0).text()
-
+    
     item = Item()
     item.load(clicked_id)
 
@@ -218,3 +221,27 @@ def load_item_info():
     wlistItems.lbl_code.setText(str(item.article_number))
     wlistItems.lbl_price.setText(str(item.returned))
 
+def reset_form():
+    print('reset_form')
+
+def add_item():
+    print("add_item")
+
+    description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
+
+    chosen_item = [
+        str(item.id),
+        wlistItems.lbl_serial.text(),
+        description,
+        wlistItems.drp_time.currentText(),
+        wlistItems.drp_state.currentText(),
+        wlistItems.lbl_price.text()
+    ]
+    print("Chosen Item: ", chosen_item)
+
+    currentRowCount = tbl_items.rowCount() #necessary even when there are no rows in the table
+    tbl_items.insertRow(currentRowCount)
+
+    for column_number in range(tbl_items.columnCount()):
+        cell = QtWidgets.QTableWidgetItem(chosen_item[column_number])
+        tbl_items.setItem(currentRowCount, column_number, cell)
