@@ -1,10 +1,9 @@
-import email
-from PyQt5 import QtWidgets, uic, QtGui
-import datetime
-import sys
+from PyQt5 import QtWidgets, QtGui, uic
 
 from model.contract import Contract
 from model.customer import Customer
+from model.item import Item
+from model.state import State
 
 
 def displayContractDetails(contract_id):
@@ -14,10 +13,13 @@ def displayContractDetails(contract_id):
     :param contract_id: The ID of the contract to display
     """
     global w_contract_details
-    w_contract_details = uic.loadUi('views/contract_inspector.ui')
     global contract
+    
     contract = Contract()
     contract.load(contract_id)
+
+    w_contract_details = uic.loadUi('views/contract_inspector.ui')
+    
     insertDetails()
     w_contract_details.setWindowTitle(f"Contrat {contract.id} du {contract.creation_date} avec {contract.firstname} {contract.lastname}")
     w_contract_details.show()    
@@ -42,10 +44,17 @@ def insertDetails():
 def displayForm():
     global wContractForm
     global tbl_customers
+    global tbl_items
 
     wContractForm = uic.loadUi('views/contract_form.ui')
+
     tbl_customers = wContractForm.customers_table
+    tbl_items = wContractForm.equipement_table
     form_load_customers(Customer.all())
+
+    # Hide Item Form
+    tbl_items.setHidden(True)
+    wContractForm.label_21.setHidden(True)
 
     wContractForm.lbl_name.textChanged.connect(filter_list)
     wContractForm.lbl_firstname.textChanged.connect(filter_list)
@@ -57,7 +66,7 @@ def displayForm():
     wContractForm.lbl_email.textChanged.connect(filter_list)
 
     tbl_customers.cellClicked.connect(load_customer)
-
+    
     ### Shortcuts ###
     shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), wContractForm)    # Create the shortcut
     shrtClients.activated.connect(shortcut_used)   # Connect the shortcut
@@ -68,6 +77,8 @@ def displayForm():
 def form_load_customers(customers):
 
     tbl_customers.setColumnHidden(0, True)
+    tbl_customers.horizontalHeader().setSectionResizeMode(1)
+    tbl_items.horizontalHeader().setSectionResizeMode(1)
 
     for row_number, customer in enumerate(customers): 
         tbl_customers.insertRow(row_number)
@@ -76,65 +87,174 @@ def form_load_customers(customers):
             tbl_customers.setItem(row_number, column_number, cell)
 
 def filter_list():
-    name = wContractForm.lbl_name.text()
-    firstname = wContractForm.lbl_firstname.text()
-    address = wContractForm.lbl_address.text()
-    npa = wContractForm.lbl_npa.text()
-    town = wContractForm.lbl_town.text()
-    phonefix = wContractForm.lbl_phonefix.text()
-    phone = wContractForm.lbl_phone.text()
-    email = wContractForm.lbl_email.text()
+    search_client = [
+        (wContractForm.lbl_name.text()).lower(), 
+        (wContractForm.lbl_firstname.text()).lower(),
+        (wContractForm.lbl_address.text()).lower(),
+        (wContractForm.lbl_npa.text()).lower(),
+        (wContractForm.lbl_town.text()).lower(),
+        (wContractForm.lbl_phonefix.text()).lower(),
+        (wContractForm.lbl_email.text()).lower(),
+        (wContractForm.lbl_phone.text()).lower()
+    ]
+    match = False
+    found_client = []
 
-    # The above code is a loop that loops through the rows of the table.
-    #         It then loops through the columns of the table.
-    #         If the text of the cell contains the filter text, then the row is shown.
-    #         Otherwise, the row is hidden.
     for x in range(tbl_customers.rowCount()):
-        match = False
-        
         for y in range(tbl_customers.columnCount()):
-            found_name = tbl_customers.item(x,1)
-            found_firstname = tbl_customers.item(x,2)
-            found_address = tbl_customers.item(x,3)
-            found_npa = tbl_customers.item(x,4)
-            found_town = tbl_customers.item(x,5)
-            found_phonefix = tbl_customers.item(x,6)
-            found_phone = tbl_customers.item(x,8)
-            found_email = tbl_customers.item(x,7)
+            if y > 0:
+                found_client.append((tbl_customers.item(x, y).text()).lower())
 
-            lower_name = (found_name.text()).lower()
-            lower_firstname = (found_firstname.text()).lower()
-            lower_address = (found_address.text()).lower()
-            lower_npa = (found_npa.text()).lower()
-            lower_town = (found_town.text()).lower()
-            lower_phonefix = (found_phonefix.text()).lower()
-            lower_phone = (found_phone.text()).lower()
-            lower_email = (found_email.text()).lower()
-
-            if lower_name.find(name.lower()) != -1 and lower_firstname.find(firstname.lower()) != -1 and lower_address.find(address.lower()) != -1 and lower_npa.find(npa.lower()) != -1 and lower_town.find(town.lower()) != -1 and lower_phonefix.find(phonefix.lower()) != -1 and lower_phone.find(phone.lower()) != -1 and lower_email.find(email.lower()) != -1 :
+        for f in range(len(search_client)):           
+            if found_client[f].find(search_client[f]) != -1:
                 match = True
-                break
+            else:
+                match = False
                 
+                break
+
         tbl_customers.setRowHidden(x, not match)
+        found_client.clear()
 
 def shortcut_used():
     if(tbl_customers.item(tbl_customers.currentRow(), 0) != None):
         load_customer()
 
 def load_customer():
-
     clicked_id = tbl_customers.item(tbl_customers.currentRow(), 0).text()
 
     customer = Customer()
     customer.load(clicked_id)
 
-    name = wContractForm.lbl_name.setText(str(customer.lastname))
-    firstname = wContractForm.lbl_firstname.setText(str(customer.firstname))
-    address = wContractForm.lbl_address.setText(str(customer.address))
-    npa = wContractForm.lbl_npa.setText(str(customer.npa))
-    town = wContractForm.lbl_town.setText(str(customer.town))
-    phonefix = wContractForm.lbl_phonefix.setText(str(customer.phone))
-    phone = wContractForm.lbl_phone.setText(str(customer.mobile))
-    email = wContractForm.lbl_email.setText(str(customer.email))
+    wContractForm.lbl_name.setText(str(customer.lastname))
+    wContractForm.lbl_firstname.setText(str(customer.firstname))
+    wContractForm.lbl_address.setText(str(customer.address))
+    wContractForm.lbl_npa.setText(str(customer.npa))
+    wContractForm.lbl_town.setText(str(customer.town))
+    wContractForm.lbl_phonefix.setText(str(customer.phone))
+    wContractForm.lbl_phone.setText(str(customer.mobile))
+    wContractForm.lbl_email.setText(str(customer.email))
+
+    wContractForm.lbl_name.setReadOnly(True)
+    wContractForm.lbl_firstname.setReadOnly(True)
+    wContractForm.lbl_name.setStyleSheet("QLineEdit"
+                    "{"
+                    "background-color : rgba(0,0,0,0);"
+                    "border: 0px"
+                    "}")
+    wContractForm.lbl_firstname.setStyleSheet("QLineEdit"
+                    "{"
+                    "background-color : rgba(0,0,0,0);"
+                    "border: 0px"
+                    "}")
 
     tbl_customers.setHidden(True)
+    tbl_items.setHidden(False)
+    wContractForm.label_21.setHidden(False)
+
+    openItemslist()
+
+def openItemslist():
+    global wlistItems
+    global table_items
+    wlistItems = uic.loadUi('views/contract_items.ui')
+    table_items = wlistItems.tbl_items
+
+    form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock"))
+
+    wlistItems.lbl_serial.textChanged.connect(filter_list_items)
+    table_items.cellClicked.connect(load_item_info)
+    wlistItems.btn_pushRight.clicked.connect(add_item)
+
+    table_items.horizontalHeader().setSectionResizeMode(1)
+
+    wlistItems.show()
+
+def form_load_items(list_items):
+    global durations
+    durations = [
+        "J - Journée",
+        "J2 - 2 Jours",
+        "S - Semaine",
+        "W - Weekend",
+        "Z - Saison"
+    ]
+
+    table_items.setColumnHidden(0, True)
+
+    for row_number, items in enumerate(list_items):
+        table_items.insertRow(row_number)
+
+        for column_number, data in enumerate(items):
+            cell = QtWidgets.QTableWidgetItem(str(data))
+            table_items.setItem(row_number, column_number, cell)
+
+    for st in State.all():
+        wlistItems.drp_state.addItem(st[2])
+
+    for t in durations:
+        wlistItems.drp_time.addItem(t)    
+
+    wlistItems.drp_time.setCurrentIndex(len(durations) - 1)
+    table_items.sortItems(1)
+
+def filter_list_items():
+    itemNb = (wlistItems.lbl_serial.text()).lower()
+
+    for x in range(table_items.rowCount()):
+        match = False
+        found_item = (table_items.item(x, 1).text()).lower()
+
+        if found_item.find(itemNb) != -1:
+            match = True 
+                
+        table_items.setRowHidden(x, not match)
+
+def load_item_info():
+    global item
+    clicked_id = table_items.item(table_items.currentRow(), 0).text()
+    
+    item = Item()
+    item.load(clicked_id)
+
+    wlistItems.drp_state.setCurrentIndex(item.gear_state_id - 1)
+
+    wlistItems.lbl_serial.setText(str(item.itemnb))
+    wlistItems.lbl_brand.setText(str(item.brand))
+    wlistItems.lbl_model.setText(str(item.model))
+    wlistItems.lbl_stock.setText(str(item.stock))
+    wlistItems.lbl_code.setText(str(item.article_number))
+    wlistItems.lbl_price.setText(str(item.returned))
+
+def add_item():
+
+    description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
+
+    chosen_item = [
+        str(item.id),
+        wlistItems.lbl_serial.text(),
+        description,
+        wlistItems.drp_time.currentText(),
+        wlistItems.drp_state.currentText(),
+        wlistItems.lbl_price.text()
+    ]
+
+    currentRowCount = tbl_items.rowCount()
+    tbl_items.insertRow(currentRowCount)
+
+    for column_number in range(tbl_items.columnCount()):
+        cell = QtWidgets.QTableWidgetItem(chosen_item[column_number])
+        tbl_items.setItem(currentRowCount, column_number, cell)
+    
+    table_items.removeRow(table_items.currentRow())
+    reset_form()
+
+
+def reset_form():
+    wlistItems.drp_state.setCurrentIndex(0)
+    wlistItems.lbl_serial.setText("")
+    wlistItems.lbl_brand.setText("")
+    wlistItems.lbl_model.setText("")
+    wlistItems.lbl_stock.setText("")
+    wlistItems.lbl_code.setText("")
+    wlistItems.lbl_price.setText("")

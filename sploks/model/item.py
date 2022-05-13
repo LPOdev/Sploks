@@ -67,6 +67,14 @@ class Item:
         """
         return crud.selectWithParams("items.id, articlenumber, brand, model, itemnb, size, name, stock",
                                      "items", "INNER JOIN geartypes ON geartypes.id = items.geartype_id")
+    
+    @staticmethod
+    def allWithColumns(columns):
+        """
+        This function returns all the items in the database
+        :return: A list of dictionaries.
+        """
+        return crud.selectWithParams(columns, "items", "INNER JOIN geartypes ON geartypes.id = items.geartype_id")
 
     @staticmethod
     def getIdBySerialNumber(serial):

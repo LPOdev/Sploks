@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS sploks;
+CREATE DATABASE sploks;
+USE sploks;
+
 -- MariaDB dump 10.19  Distrib 10.6.3-MariaDB, for osx10.16 (x86_64)
 --
 -- Host: localhost    Database: sploks
