@@ -165,6 +165,7 @@ def openItemslist():
 
     wlistItems.lbl_serial.textChanged.connect(filter_list_items)
     table_items.cellClicked.connect(load_item_info)
+    wlistItems.btn_pushRight.setDisabled(True)
     wlistItems.btn_pushRight.clicked.connect(add_item)
     wlistItems.btn_clear.clicked.connect(reset_form)
 
@@ -225,6 +226,7 @@ def load_item_info():
     wlistItems.lbl_code.setText(str(item.article_number))
     wlistItems.lbl_price.setText(str(item.returned))
 
+    wlistItems.btn_pushRight.setDisabled(False)
     wlistItems.lbl_serial.setReadOnly(True)
     wlistItems.lbl_serial.setStyleSheet("QLineEdit"
                         "{"
@@ -261,9 +263,11 @@ def reset_form():
     wlistItems.lbl_stock.setText("")
     wlistItems.lbl_code.setText("")
     wlistItems.lbl_price.setText("")
+    wlistItems.btn_pushRight.setDisabled(True)
     wlistItems.lbl_serial.setReadOnly(False)
     wlistItems.lbl_serial.setStyleSheet("QLineEdit"
                         "{"
                         "background: white;"
                         "border: 1px solid gray"
                         "}")
+    
