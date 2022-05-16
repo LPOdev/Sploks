@@ -121,13 +121,15 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+             <string notr="true">font: 87 14pt &quot;Arial&quot;;
+background-color : rgba(0,0,0,0);
+border: 0px</string>
             </property>
             <property name="text">
              <string/>
             </property>
             <property name="readOnly">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -143,13 +145,15 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+             <string notr="true">font: 87 14pt &quot;Arial&quot;;
+background-color : rgba(0,0,0,0);
+border: 0px</string>
             </property>
             <property name="text">
              <string/>
             </property>
             <property name="readOnly">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -165,13 +169,15 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+             <string notr="true">font: 87 14pt &quot;Arial&quot;;
+background-color : rgba(0,0,0,0);
+border: 0px</string>
             </property>
             <property name="text">
              <string/>
             </property>
             <property name="readOnly">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -235,13 +241,15 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+             <string notr="true">font: 87 14pt &quot;Arial&quot;;
+background-color : rgba(0,0,0,0);
+border: 0px</string>
             </property>
             <property name="text">
              <string/>
             </property>
             <property name="readOnly">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -316,21 +324,42 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_pushRight">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>res/right_icon.png</normaloff>res/right_icon.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="btn_pushRight">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>res/right_icon.png</normaloff>res/right_icon.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_clear">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>res/cancel_icon.png</normaloff>res/cancel_icon.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -416,7 +445,6 @@
   <tabstop>drp_time</tabstop>
   <tabstop>drp_state</tabstop>
   <tabstop>lbl_price</tabstop>
-  <tabstop>btn_pushRight</tabstop>
   <tabstop>tbl_items</tabstop>
  </tabstops>
  <resources/>

@@ -166,6 +166,7 @@ def openItemslist():
     wlistItems.lbl_serial.textChanged.connect(filter_list_items)
     table_items.cellClicked.connect(load_item_info)
     wlistItems.btn_pushRight.clicked.connect(add_item)
+    wlistItems.btn_clear.clicked.connect(reset_form)
 
     table_items.horizontalHeader().setSectionResizeMode(1)
 
@@ -209,6 +210,7 @@ def filter_list_items():
 
 def load_item_info():
     global item
+
     clicked_id = table_items.item(table_items.currentRow(), 0).text()
     
     item = Item()
@@ -223,8 +225,13 @@ def load_item_info():
     wlistItems.lbl_code.setText(str(item.article_number))
     wlistItems.lbl_price.setText(str(item.returned))
 
+    wlistItems.lbl_serial.setReadOnly(True)
+    wlistItems.lbl_serial.setStyleSheet("QLineEdit"
+                        "{"
+                        "background-color : rgba(0,0,0,0);"
+                        "border: 0px"
+                        "}")
 def add_item():
-
     description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
 
     chosen_item = [
@@ -254,3 +261,9 @@ def reset_form():
     wlistItems.lbl_stock.setText("")
     wlistItems.lbl_code.setText("")
     wlistItems.lbl_price.setText("")
+    wlistItems.lbl_serial.setReadOnly(False)
+    wlistItems.lbl_serial.setStyleSheet("QLineEdit"
+                        "{"
+                        "background: white;"
+                        "border: 1px solid gray"
+                        "}")
