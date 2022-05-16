@@ -215,19 +215,20 @@ def filter_list_items():
 def load_item_info():
     global item
 
+    wlistItems.drp_time.currentIndexChanged.connect(load_price)
+    wlistItems.drp_state.currentIndexChanged.connect(load_price)
+
     clicked_id = table_items.item(table_items.currentRow(), 0).text()
     
     item = Item()
     item.load(clicked_id)
 
     wlistItems.drp_state.setCurrentIndex(item.gear_state_id - 1)
-
     wlistItems.lbl_serial.setText(str(item.itemnb))
     wlistItems.lbl_brand.setText(str(item.brand))
     wlistItems.lbl_model.setText(str(item.model))
     wlistItems.lbl_stock.setText(str(item.stock))
     wlistItems.lbl_code.setText(str(item.article_number))
-    wlistItems.lbl_price.setText(str(item.returned))
 
     wlistItems.btn_pushRight.setDisabled(False)
     wlistItems.lbl_serial.setReadOnly(True)
@@ -236,6 +237,19 @@ def load_item_info():
                         "background-color : rgba(0,0,0,0);"
                         "border: 0px"
                         "}")
+
+def load_price():
+    tst_duration = wlistItems.drp_time.currentIndex() + 1
+    tst_state = wlistItems.drp_state.currentIndex() + 1
+
+    price = item.get_location_price(tst_state, tst_duration)
+
+    if price:
+        wlistItems.lbl_price.setText(str(price[0][4]))
+    else:
+        wlistItems.lbl_price.setText(str(0))
+
+
 def add_item():
     description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
 
@@ -256,7 +270,6 @@ def add_item():
         tbl_items.setItem(currentRowCount, column_number, cell)
 
     reset_form()
-
 
 def reset_form():
     wlistItems.drp_state.setCurrentIndex(0)
