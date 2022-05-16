@@ -262,14 +262,9 @@ def load_price():
     price = item.get_location_price(tst_state, tst_duration)
 
     if price:
-        wlistItems.lbl_price.setText(str(price[0][4]))
+        wlistItems.lbl_price.setValue(float(price[0][4]))
     else:
-        wlistItems.lbl_price.setText(str(0))
-
-
-def add_item():
-    description = wlistItems.lbl_brand.text() +" "+wlistItems.lbl_model.text()+" "+str(item.size)+" ("+wlistItems.lbl_code.text()+")"
-
+        wlistItems.lbl_price.setValue(float(0))
 
 def add_item():
     description = wlistItems.lbl_brand.text() + " " + wlistItems.lbl_model.text() + " " + str(
@@ -292,10 +287,7 @@ def add_item():
 
     table_items.removeRow(table_items.currentRow())
 
-    add_price(wlistItems.lbl_price.value())
-    reset_form()
-
-
+    getTotal()
     reset_form()
 
 def reset_form():
@@ -314,11 +306,16 @@ def reset_form():
                         "background: white;"
                         "border: 1px solid gray"
                         "}")
-    def add_price(price):
-      global items_price
-      items_price += float(price)
-      wContractForm.lbl_price.setText('Prix: CHF ' + str(items_price))
+
+def getTotal():
+    total_price = 0.00
+
+    for row in range(tbl_items.rowCount()):
+        total_price += float(tbl_items.item(row, 5).text())
+    
+    wContractForm.lbl_price.setText('Prix: CHF ' + str(total_price))
 
 def remove_item():
     if(tbl_items.item(tbl_items.currentRow(), 0) != None):
         tbl_items.removeRow(tbl_items.currentRow())
+        getTotal()
