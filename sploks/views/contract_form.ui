@@ -406,14 +406,64 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_21">
-      <property name="styleSheet">
-       <string notr="true">font: 87 20pt &quot;Arial Black&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Equipement</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_21">
+        <property name="styleSheet">
+         <string notr="true">font: 87 20pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Equipement</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_openList">
+        <property name="maximumSize">
+         <size>
+          <width>42</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>res/list_icon.png</normaloff>res/list_icon.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_delete">
+        <property name="maximumSize">
+         <size>
+          <width>42</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>res/trash_icon.png</normaloff>res/trash_icon.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QTableWidget" name="equipement_table">
@@ -460,7 +510,7 @@
       </column>
       <column>
        <property name="text">
-        <string>N/S</string>
+        <string>Identifiant</string>
        </property>
       </column>
       <column>
