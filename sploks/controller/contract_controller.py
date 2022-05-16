@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtGui, uic
+from PyQt5 import QtWidgets, QtGui,uic
 
 from model.contract import Contract
 from model.customer import Customer
@@ -172,6 +172,8 @@ def openItemslist():
 
     table_items.horizontalHeader().setSectionResizeMode(1)
 
+    wlistItems.move(0, 0)
+
     wlistItems.show()
 
 def form_load_items(list_items):
@@ -271,4 +273,3 @@ def reset_form():
                         "background: white;"
                         "border: 1px solid gray"
                         "}")
-    
