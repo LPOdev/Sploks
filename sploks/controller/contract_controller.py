@@ -56,6 +56,8 @@ def displayForm():
     # Hide Item Form
     tbl_items.setHidden(True)
     wContractForm.label_21.setHidden(True)
+    wContractForm.btn_openList.setHidden(True)
+
 
     wContractForm.lbl_name.textChanged.connect(filter_list)
     wContractForm.lbl_firstname.textChanged.connect(filter_list)
@@ -67,6 +69,9 @@ def displayForm():
     wContractForm.lbl_email.textChanged.connect(filter_list)
 
     tbl_customers.cellClicked.connect(load_customer)
+
+    wContractForm.btn_openList.clicked.connect(openItemslist)
+
     
     ### Shortcuts ###
     shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), wContractForm)    # Create the shortcut
@@ -153,6 +158,7 @@ def load_customer():
     tbl_customers.setHidden(True)
     tbl_items.setHidden(False)
     wContractForm.label_21.setHidden(False)
+    wContractForm.btn_openList.setHidden(False)
 
     openItemslist()
 
