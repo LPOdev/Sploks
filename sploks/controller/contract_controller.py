@@ -4,6 +4,7 @@ from model.contract import Contract
 from model.customer import Customer
 from model.item import Item
 from model.state import State
+from model.duration import Duration
 
 
 def displayContractDetails(contract_id):
@@ -171,14 +172,9 @@ def openItemslist():
     wlistItems.show()
 
 def form_load_items(list_items):
-    global durations
-    durations = [
-        "J - Journée",
-        "J2 - 2 Jours",
-        "S - Semaine",
-        "W - Weekend",
-        "Z - Saison"
-    ]
+    
+    durations_list = Duration.all()
+    states_list = State.all()
 
     table_items.setColumnHidden(0, True)
 
@@ -189,13 +185,14 @@ def form_load_items(list_items):
             cell = QtWidgets.QTableWidgetItem(str(data))
             table_items.setItem(row_number, column_number, cell)
 
-    for st in State.all():
+    for st in states_list:
         wlistItems.drp_state.addItem(st[2])
 
-    for t in durations:
-        wlistItems.drp_time.addItem(t)    
+    for t in durations_list:
+        wlistItems.drp_time.addItem(t[2])
 
-    wlistItems.drp_time.setCurrentIndex(len(durations) - 1)
+    wlistItems.drp_time.setCurrentIndex(len(durations_list) - 1)
+
     table_items.sortItems(1)
 
 def filter_list_items():
