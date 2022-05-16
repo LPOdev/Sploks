@@ -78,6 +78,7 @@ def displayForm():
 def form_load_customers(customers):
 
     tbl_customers.setColumnHidden(0, True)
+    tbl_items.setColumnHidden(0, True)
     tbl_customers.horizontalHeader().setSectionResizeMode(1)
     tbl_items.horizontalHeader().setSectionResizeMode(1)
 
