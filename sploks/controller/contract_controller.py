@@ -242,8 +242,7 @@ def add_item():
     for column_number in range(tbl_items.columnCount()):
         cell = QtWidgets.QTableWidgetItem(chosen_item[column_number])
         tbl_items.setItem(currentRowCount, column_number, cell)
-    
-    table_items.removeRow(table_items.currentRow())
+
     reset_form()
 
 
