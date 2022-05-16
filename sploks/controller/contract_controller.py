@@ -57,6 +57,7 @@ def displayForm():
     tbl_items.setHidden(True)
     wContractForm.label_21.setHidden(True)
     wContractForm.btn_openList.setHidden(True)
+    wContractForm.btn_delete.setHidden(True)
 
 
     wContractForm.lbl_name.textChanged.connect(filter_list)
@@ -71,6 +72,7 @@ def displayForm():
     tbl_customers.cellClicked.connect(load_customer)
 
     wContractForm.btn_openList.clicked.connect(openItemslist)
+    wContractForm.btn_delete.clicked.connect(remove_item)
 
     
     ### Shortcuts ###
@@ -159,6 +161,8 @@ def load_customer():
     tbl_items.setHidden(False)
     wContractForm.label_21.setHidden(False)
     wContractForm.btn_openList.setHidden(False)
+    wContractForm.btn_delete.setHidden(False)
+
 
     openItemslist()
 
@@ -292,3 +296,7 @@ def reset_form():
                         "background: white;"
                         "border: 1px solid gray"
                         "}")
+
+def remove_item():
+    if(tbl_items.item(tbl_items.currentRow(), 0) != None):
+        tbl_items.removeRow(tbl_items.currentRow())
