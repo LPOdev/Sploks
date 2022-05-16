@@ -40,7 +40,7 @@
         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
        </property>
        <property name="text">
-        <string>Numéro de série:</string>
+        <string>Identifiant:</string>
        </property>
       </widget>
      </item>

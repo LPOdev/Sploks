@@ -49,7 +49,7 @@
              <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
             </property>
             <property name="text">
-             <string>Nb série:</string>
+             <string>Identifiant:</string>
             </property>
            </widget>
           </item>
@@ -382,7 +382,7 @@
         </column>
         <column>
          <property name="text">
-          <string>N/S</string>
+          <string>Identifiant</string>
          </property>
         </column>
         <column>

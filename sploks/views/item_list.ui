@@ -68,7 +68,7 @@
       </column>
       <column>
        <property name="text">
-        <string>N/S</string>
+        <string>Identifiant</string>
        </property>
       </column>
       <column>
