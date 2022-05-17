@@ -94,7 +94,7 @@ def itemDetails():
 
     insertDetails()
     global contracts_list
-    
+
     contracts_list = item.contracts()
     w_item_details.lbl_nbContracts.setText(str(len(contracts_list)))
 
@@ -270,6 +270,9 @@ def itemContracts():
     w_item_contracts = uic.loadUi('views/contracts_list.ui')
     loadContracts(contracts_list)
     w_item_contracts.setWindowTitle(f"Contrats de location de {item.brand} {item.model} {item.itemnb}")
+    
+    w_item_contracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
+    
     w_item_contracts.show()
 
 

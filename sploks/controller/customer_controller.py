@@ -34,7 +34,7 @@ def displayDetail():
     loadCustomerDetails()  # Calls function that displays the data in window with lastname and firstname as customer's identifier
 
     global contracts_list
-    
+
     contracts_list = clicked_customer.contracts()
     w_customer_details.lbl_nbContracts.setText(str(len(contracts_list)))
 
@@ -84,6 +84,9 @@ def customerContracts():
     w_customer_contracts = uic.loadUi('views/contracts_list.ui')
     loadContracts(contracts_list)
     w_customer_contracts.setWindowTitle(f"Contrats de {clicked_customer.firstname} {clicked_customer.lastname}")
+    
+    w_customer_contracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
+
     w_customer_contracts.show()
 
 
