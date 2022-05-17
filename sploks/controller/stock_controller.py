@@ -14,6 +14,7 @@ def displayStock():
     global w_stock
     w_stock = uic.loadUi('views/item_list.ui')  # Load the .ui file
     loadItems(Item.all())
+    w_stock.tableStock.horizontalHeader().setSectionResizeMode(1)
     w_stock.show()
 
 
