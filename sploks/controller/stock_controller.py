@@ -279,7 +279,6 @@ def loadContracts(contracts):
     :param contracts: The contracts of the item. Type: Array
     """
     w_item_contracts.tableContracts.setColumnCount(len(contracts[0]))
-    w_item_contracts.tableContracts.setHorizontalHeaderLabels(["Id", "Prénom", "Nom", "Date de création", "Date de retour", "Service", "Réglage"])
 
     for row_number, contracts in enumerate(contracts):
         w_item_contracts.tableContracts.insertRow(row_number)
