@@ -18,6 +18,8 @@ def displayCustomers():
     loadTableCustomers(Customer.all())  # Calls function that displays the data in table
     wCustomers.tableCustomers.horizontalHeader().setSectionResizeMode(1)
 
+    wCustomers.lblSearchBox.textChanged.connect(filter_list)
+    
     wCustomers.show()  # Show the window
 
 
@@ -42,6 +44,7 @@ def displayDetail():
         w_customer_details.btnContracts.setDisabled(True)
 
     w_customer_details.btnContracts.clicked.connect(customerContracts)
+
     w_customer_details.show()  # Show the window
 
 
@@ -105,3 +108,17 @@ def loadContracts(contracts):
         for column_number, data in enumerate(contracts):
             cell = QtWidgets.QTableWidgetItem(str(data))
             w_customer_contracts.tableContracts.setItem(row_number, column_number, cell)
+
+def filter_list():
+    filter_txt = wCustomers.lblSearchBox.text()
+
+    for x in range(wCustomers.tableCustomers.rowCount()):
+        match = False
+        for y in range(wCustomers.tableCustomers.columnCount()):
+            found_item = wCustomers.tableCustomers.item(x,y)
+            txt = (found_item.text()).lower()
+            if txt.find(filter_txt.lower()) != -1:
+                match = True
+                break
+                
+        wCustomers.tableCustomers.setRowHidden(x, not match)
