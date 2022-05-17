@@ -1,3 +1,4 @@
+from logging.config import valid_ident
 from PyQt5 import QtWidgets, QtGui,uic
 
 from model.contract import Contract
@@ -273,6 +274,7 @@ def load_price():
 def add_item():
     description = wlistItems.lbl_brand.text() + " " + wlistItems.lbl_model.text() + " " + str(
         item.size) + " (" + wlistItems.lbl_code.text() + ")"
+    
     chosen_item = [
         str(item.id),
         wlistItems.lbl_serial.text(),
@@ -289,9 +291,8 @@ def add_item():
         cell = QtWidgets.QTableWidgetItem(chosen_item[column_number])
         tbl_items.setItem(currentRowCount, column_number, cell)
 
-    table_items.removeRow(table_items.currentRow())
-
     getTotal()
+    save_item_state()
     reset_form()
 
 def reset_form():
@@ -323,3 +324,22 @@ def remove_item():
     if(tbl_items.item(tbl_items.currentRow(), 0) != None):
         tbl_items.removeRow(tbl_items.currentRow())
         getTotal()
+
+def save_item_state():
+    actual_state = wlistItems.drp_state.currentIndex() + 1
+    
+    test_list = []
+
+    if item.gear_state_id is not actual_state:
+        item.gear_state_id = actual_state
+        
+        for attr, value in item.__dict__.items():
+            print(attr, value)
+            if value is None:
+                test_list.append("")
+            else:
+                test_list.append(value)
+        
+        print(test_list)
+        #result = item.save([item.itemnb, item.brand, item.model, item.size, item.gear_state_id, item.cost, item.returned, item.stock, item.article_number, item.geartype_id])
+        result = item.save(test_list[1:-1])
