@@ -7,6 +7,10 @@ from model.state import State
 from model.duration import Duration
 
 
+
+
+########## - Contract Details - ##########
+
 def displayContractDetails(contract_id):
     """
     It loads the contract with the given id and displays its details
