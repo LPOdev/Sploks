@@ -54,7 +54,7 @@ class Item:
         This function returns a list of contracts that have the item with the given id
         :return: A rented item.
         """
-        return crud.selectOneWithParams(
+        return crud.selectDistinct(
             "contracts.id, customers.firstname, customers.lastname, contracts.creationdate, contracts.effectivereturn, CONCAT(helpers.firstname, ' ',helpers.lastname) as helpersFullname, CONCAT(staffs.firstname, ' ',staffs.lastname)",
             "items",
             f"INNER JOIN renteditems ON items.id = item_id INNER JOIN contracts ON contract_id = contracts.id INNER JOIN customers ON customer_id = customers.id INNER JOIN staffs AS helpers ON contracts.help_staff_id = helpers.id INNER JOIN staffs ON contracts.tune_staff_id = staffs.id WHERE items.id = {self.id}")

@@ -94,8 +94,8 @@ def itemDetails():
 
     insertDetails()
     global contracts_list
+    
     contracts_list = item.contracts()
-
     w_item_details.lbl_nbContracts.setText(str(len(contracts_list)))
 
     if len(contracts_list) < 1:

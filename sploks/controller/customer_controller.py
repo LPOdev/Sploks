@@ -34,6 +34,7 @@ def displayDetail():
     loadCustomerDetails()  # Calls function that displays the data in window with lastname and firstname as customer's identifier
 
     global contracts_list
+    
     contracts_list = clicked_customer.contracts()
     w_customer_details.lbl_nbContracts.setText(str(len(contracts_list)))
 
