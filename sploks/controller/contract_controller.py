@@ -1,4 +1,3 @@
-from logging.config import valid_ident
 from PyQt5 import QtWidgets, QtGui,uic
 
 from model.contract import Contract
@@ -334,12 +333,10 @@ def save_item_state():
         item.gear_state_id = actual_state
         
         for attr, value in item.__dict__.items():
-            print(attr, value)
+            #print(attr, value)
             if value is None:
-                test_list.append("")
+                test_list.append("0")
             else:
                 test_list.append(value)
         
-        print(test_list)
-        #result = item.save([item.itemnb, item.brand, item.model, item.size, item.gear_state_id, item.cost, item.returned, item.stock, item.article_number, item.geartype_id])
         result = item.save(test_list[1:-1])
