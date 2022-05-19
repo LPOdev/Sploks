@@ -6,7 +6,19 @@ from model.item import Item
 from model.state import State
 from model.duration import Duration
 
+def displayContracts():
+    """
+    This function displays the contracts of one item
+    """
+    global wContracts
+    wContracts = uic.loadUi('views/contracts_list.ui')    
+    wContracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
+    
+    wContracts.show()
 
+
+def loadContracts():
+    print("Hi")
 
 
 ########## - Contract Details - ##########

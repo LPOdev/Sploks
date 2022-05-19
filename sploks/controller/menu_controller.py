@@ -17,6 +17,7 @@ def displayMenu(self):
     wMenu.btnStaff.clicked.connect(getStaffs)  # Open the list of staffs
     wMenu.btnStock.clicked.connect(getStock)  # Open the list of item
     wMenu.btnNewContract.clicked.connect(getContractForm)
+    wMenu.btnContracts.clicked.connect(getContracts)
 
     ### Shortcuts ###
     # It creates a shortcut to open the list of clients.
@@ -57,6 +58,9 @@ def getStock():
     This function displays the stock
     """
     stocks.displayStock()
+
+def getContracts():
+    contracts.displayContracts()
 
 def getContractForm():
     contracts.displayForm()
