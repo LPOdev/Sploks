@@ -1,4 +1,6 @@
 import datetime
+import locale
+locale.setlocale(locale.LC_TIME, "fr_FR") # Français
 
 
 # This class contains a set of helper functions that are used by the other classes

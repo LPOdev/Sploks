@@ -1,3 +1,4 @@
+from operator import contains
 from PyQt5 import QtWidgets, QtGui,uic
 
 from model.contract import Contract
@@ -14,14 +15,15 @@ def displayContracts():
     wContracts = uic.loadUi('views/contracts_list.ui')    
     wContracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
     
-    Contract.allWithParams()
-    #loadContracts(Contract.allWithParams())
+    loadContracts(Contract.allWithParams())
 
     wContracts.show()
 
 
 def loadContracts(contracts_list):
-    #print(contracts_list)
+    
+    print(type(contracts_list))
+
     wContracts.tableContracts.setColumnCount(len(contracts_list[0]))
     wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Client", "Date", "Retour"])
 
