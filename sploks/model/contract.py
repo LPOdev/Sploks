@@ -30,6 +30,25 @@ class Contract:
 
     @staticmethod
     def all():
-        return crud.selectWithParams("contracts.id, customers.firstname, customers.lastname, creationdate, effectivereturn, plannedreturn, total, takenon, paidon,  CONCAT(helpers.firstname, ' ',helpers.lastname) as helpersFullname, CONCAT(staffs.firstname, ' ',staffs.lastname)",
-                                     "contracts", 
-                                     "INNER JOIN customers ON customer_id = customers.id INNER JOIN staffs AS helpers ON help_staff_id = helpers.id INNER JOIN staffs ON tune_staff_id = staffs.id")
+        return crud.selectAll("contracts")
+
+    @staticmethod
+    def allWithParams():
+        list_c = crud.selectWithParams("contracts.id, CONCAT(customers.firstname, ' ', customers.lastname) as client, creationdate, plannedreturn, IF (effectivereturn is null, 0, 1) as returned",
+            "contracts",
+            "INNER JOIN customers ON customer_id = customers.id")
+        
+        contracts_list = list(list_c)
+
+        contracts_list[0][0] = 456
+
+        list_c = tuple(contracts_list)
+        
+
+        print(list_c)
+
+        '''for c in list_c:
+            contracts_list.append([c[0], c[1], Helpers.formatDate(c[2]), Helpers.formatDate(c[3]), c[4]])
+            '''
+
+        #print(contracts_list)

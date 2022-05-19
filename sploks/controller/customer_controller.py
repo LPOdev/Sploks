@@ -1,9 +1,5 @@
 from PyQt5 import QtWidgets, uic
-from const import con
-from model import crud
 from model.customer import Customer
-import sys
-
 
 def displayCustomers():
     """

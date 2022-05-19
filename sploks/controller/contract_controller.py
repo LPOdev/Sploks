@@ -14,14 +14,16 @@ def displayContracts():
     wContracts = uic.loadUi('views/contracts_list.ui')    
     wContracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
     
-    loadContracts(Contract.all())
+    Contract.allWithParams()
+    #loadContracts(Contract.allWithParams())
 
     wContracts.show()
 
 
 def loadContracts(contracts_list):
+    #print(contracts_list)
     wContracts.tableContracts.setColumnCount(len(contracts_list[0]))
-    wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Prénom", "Nom", "Création", "Retour", "Rendu Prévu", "Total", "Pris le", "Payé le", "Service", "Réglage"])
+    wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Client", "Date", "Retour"])
 
     for row_number, contracts in enumerate(contracts_list):
         wContracts.tableContracts.insertRow(row_number)
@@ -31,7 +33,6 @@ def loadContracts(contracts_list):
             wContracts.tableContracts.setItem(row_number, column_number, cell)
     
     wContracts.tableContracts.setColumnHidden(0, True)
-
 
 
 

@@ -1,5 +1,4 @@
 from PyQt5 import QtWidgets, QtGui, uic
-import sys
 from controller import customer_controller as clients
 from controller import staff_controller as staffs
 from controller import stock_controller as stocks
