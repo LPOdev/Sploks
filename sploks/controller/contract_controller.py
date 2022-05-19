@@ -22,8 +22,6 @@ def displayContracts():
 
 def loadContracts(contracts_list):
     
-    print(type(contracts_list))
-
     wContracts.tableContracts.setColumnCount(len(contracts_list[0]))
     wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Client", "Date", "Retour"])
 
