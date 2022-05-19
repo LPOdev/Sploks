@@ -335,7 +335,7 @@ def save_item_state():
         for attr, value in item.__dict__.items():
             #print(attr, value)
             if value is None:
-                test_list.append("0")
+                test_list.append("null")
             else:
                 test_list.append(value)
         
