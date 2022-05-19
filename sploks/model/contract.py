@@ -12,7 +12,8 @@ class Contract:
         contract_infos = crud.selectOneWithParams(
             "contracts.id, creationdate, effectivereturn, lastname, firstname, address, npa, town, mobile, phone, email",
             "contracts",
-            "INNER JOIN customers ON customer_id = customers.id INNER JOIN npas ON npa_id = npas.id WHERE contracts.id = 2222")
+            f"INNER JOIN customers ON customer_id = customers.id INNER JOIN npas ON npa_id = npas.id WHERE contracts.id = {id}")
+
         creation_date = Helpers.formatDate(contract_infos['creationdate'])
         return_date = Helpers.formatDate(contract_infos['effectivereturn'])
 
@@ -27,4 +28,8 @@ class Contract:
         self.phone = contract_infos['phone']
         self.email = contract_infos['email']
 
-
+    @staticmethod
+    def all():
+        return crud.selectWithParams("contracts.id, customers.firstname, customers.lastname, creationdate, effectivereturn, plannedreturn, total, takenon, paidon,  CONCAT(helpers.firstname, ' ',helpers.lastname) as helpersFullname, CONCAT(staffs.firstname, ' ',staffs.lastname)",
+                                     "contracts", 
+                                     "INNER JOIN customers ON customer_id = customers.id INNER JOIN staffs AS helpers ON help_staff_id = helpers.id INNER JOIN staffs ON tune_staff_id = staffs.id")

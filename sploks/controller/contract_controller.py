@@ -14,11 +14,26 @@ def displayContracts():
     wContracts = uic.loadUi('views/contracts_list.ui')    
     wContracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
     
+    loadContracts(Contract.all())
+
     wContracts.show()
 
 
-def loadContracts():
-    print("Hi")
+def loadContracts(contracts_list):
+    wContracts.tableContracts.setColumnCount(len(contracts_list[0]))
+    wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Prénom", "Nom", "Création", "Retour", "Rendu Prévu", "Total", "Pris le", "Payé le", "Service", "Réglage"])
+
+    for row_number, contracts in enumerate(contracts_list):
+        wContracts.tableContracts.insertRow(row_number)
+
+        for column_number, data in enumerate(contracts):
+            cell = QtWidgets.QTableWidgetItem(str(data))
+            wContracts.tableContracts.setItem(row_number, column_number, cell)
+    
+    wContracts.tableContracts.setColumnHidden(0, True)
+
+
+
 
 
 ########## - Contract Details - ##########
