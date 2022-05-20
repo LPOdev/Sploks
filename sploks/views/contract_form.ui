@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1006</width>
-    <height>602</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -406,14 +406,64 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_21">
-      <property name="styleSheet">
-       <string notr="true">font: 87 20pt &quot;Arial Black&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Equipement</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_21">
+        <property name="styleSheet">
+         <string notr="true">font: 87 20pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Equipement</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_openList">
+        <property name="maximumSize">
+         <size>
+          <width>42</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>res/list_icon.png</normaloff>res/list_icon.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_delete">
+        <property name="maximumSize">
+         <size>
+          <width>42</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>res/trash_icon.png</normaloff>res/trash_icon.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QTableWidget" name="equipement_table">
@@ -422,9 +472,6 @@
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="tabKeyNavigation">
-       <bool>false</bool>
       </property>
       <property name="showDropIndicator" stdset="0">
        <bool>false</bool>
@@ -444,14 +491,11 @@
       <property name="sortingEnabled">
        <bool>false</bool>
       </property>
-      <attribute name="horizontalHeaderStretchLastSection">
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
        <bool>true</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderCascadingSectionResizes">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <column>
        <property name="text">
@@ -460,7 +504,7 @@
       </column>
       <column>
        <property name="text">
-        <string>N/S</string>
+        <string>Identifiant</string>
        </property>
       </column>
       <column>
@@ -483,6 +527,19 @@
         <string>Prix</string>
        </property>
       </column>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lbl_price">
+      <property name="styleSheet">
+       <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Prix: 0.00 CHF</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
      </widget>
     </item>
    </layout>

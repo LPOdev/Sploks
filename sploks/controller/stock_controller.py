@@ -14,6 +14,7 @@ def displayStock():
     global w_stock
     w_stock = uic.loadUi('views/item_list.ui')  # Load the .ui file
     loadItems(Item.all())
+    w_stock.tableStock.horizontalHeader().setSectionResizeMode(1)
     w_stock.show()
 
 
@@ -93,8 +94,8 @@ def itemDetails():
 
     insertDetails()
     global contracts_list
-    contracts_list = item.contracts()
 
+    contracts_list = item.contracts()
     w_item_details.lbl_nbContracts.setText(str(len(contracts_list)))
 
     if len(contracts_list) < 1:
@@ -269,6 +270,9 @@ def itemContracts():
     w_item_contracts = uic.loadUi('views/contracts_list.ui')
     loadContracts(contracts_list)
     w_item_contracts.setWindowTitle(f"Contrats de location de {item.brand} {item.model} {item.itemnb}")
+    
+    w_item_contracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
+    
     w_item_contracts.show()
 
 
@@ -279,7 +283,6 @@ def loadContracts(contracts):
     :param contracts: The contracts of the item. Type: Array
     """
     w_item_contracts.tableContracts.setColumnCount(len(contracts[0]))
-    w_item_contracts.tableContracts.setHorizontalHeaderLabels(["Id", "Prénom", "Nom", "Date de création", "Date de retour", "Service", "Réglage"])
 
     for row_number, contracts in enumerate(contracts):
         w_item_contracts.tableContracts.insertRow(row_number)

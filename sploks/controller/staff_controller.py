@@ -1,6 +1,4 @@
 from PyQt5 import QtWidgets, uic
-from const import con
-import sys
 
 from model.staff import Staff
 

@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Customers</class>
- <widget class="QMainWindow" name="Customers">
+ <class>contracts</class>
+ <widget class="QMainWindow" name="contracts">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
+    <width>720</width>
     <height>360</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>920</width>
-    <height>0</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>Clients</string>
+   <string>Retours en retard</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -36,7 +30,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTableWidget" name="tableCustomers">
+     <widget class="QTableWidget" name="tableContracts">
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
@@ -59,42 +53,32 @@
       </column>
       <column>
        <property name="text">
-        <string>Nom</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
         <string>Prénom</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Adresse</string>
+        <string>Nom</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>NPA</string>
+        <string>Création</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Localité</string>
+        <string>Retour</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Téléphone</string>
+        <string>Service</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Email</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Mobile</string>
+        <string>Réglage</string>
        </property>
       </column>
      </widget>
