@@ -18,6 +18,8 @@ def displayContracts():
     
     loadContracts(Contract.allWithParams())
 
+    wContracts.lblSearchBox.textChanged.connect(filter_list)
+
     wContracts.show()
 
 
@@ -84,6 +86,19 @@ def insertDetails():
     w_contract_details.lst_mobile.addItem(contract.mobile)
     w_contract_details.lst_email.addItem(contract.email)
 
+def filter_list():
+    filter_txt = wContracts.lblSearchBox.text()
+
+    for x in range(wContracts.tableContracts.rowCount()):
+        match = False
+        for y in range(wContracts.tableContracts.columnCount()):
+            found_item = wContracts.tableContracts.item(x,y)
+            txt = (found_item.text()).lower()
+            if txt.find(filter_txt.lower()) != -1:
+                match = True
+                break
+                
+        wContracts.tableContracts.setRowHidden(x, not match)
 
 ########## - Contract Form - ##########
 
@@ -105,14 +120,14 @@ def displayForm():
     wContractForm.btn_delete.setHidden(True)
 
 
-    wContractForm.lbl_name.textChanged.connect(filter_list)
-    wContractForm.lbl_firstname.textChanged.connect(filter_list)
-    wContractForm.lbl_address.textChanged.connect(filter_list)
-    wContractForm.lbl_npa.textChanged.connect(filter_list)
-    wContractForm.lbl_town.textChanged.connect(filter_list)
-    wContractForm.lbl_phonefix.textChanged.connect(filter_list)
-    wContractForm.lbl_phone.textChanged.connect(filter_list)
-    wContractForm.lbl_email.textChanged.connect(filter_list)
+    wContractForm.lbl_name.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_firstname.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_address.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_npa.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_town.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_phonefix.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_phone.textChanged.connect(filter_list_clients)
+    wContractForm.lbl_email.textChanged.connect(filter_list_clients)
 
     tbl_customers.cellClicked.connect(load_customer)
 
@@ -140,7 +155,7 @@ def form_load_customers(customers):
             tbl_customers.setItem(row_number, column_number, cell)
 
 
-def filter_list():
+def filter_list_clients():
     search_client = [
         (wContractForm.lbl_name.text()).lower(),
         (wContractForm.lbl_firstname.text()).lower(),
