@@ -1,12 +1,50 @@
+from datetime import datetime
 from PyQt5 import QtWidgets, QtGui,uic
 
 from model.contract import Contract
 from model.customer import Customer
+from model.helpers import Helpers
 from model.item import Item
 from model.state import State
 from model.duration import Duration
 
+def displayContracts():
+    """
+    This function displays the contracts of one item
+    """
+    global wContracts
+    wContracts = uic.loadUi('views/contracts_list.ui')    
+    wContracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
+    
+    loadContracts(Contract.allWithParams())
 
+    wContracts.show()
+
+
+def loadContracts(contracts_list):
+    
+    wContracts.tableContracts.setColumnCount(len(contracts_list[0])-1)
+    wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Client", "Date", "Retour"])
+
+    for row_number, contracts in enumerate(contracts_list):
+        wContracts.tableContracts.insertRow(row_number)
+
+        for column_number, data in enumerate(contracts[:-1]):
+            cell = QtWidgets.QTableWidgetItem(str(data))
+            wContracts.tableContracts.setItem(row_number, column_number, cell)
+        
+        if contracts[4] is None:
+            if datetime.strptime(contracts[3], '%d.%m.%Y') < datetime.now():
+                wContracts.tableContracts.item(row_number, 3).setForeground(QtGui.QColor(255, 0, 0))                
+
+        else:
+            if datetime.strptime(contracts[3], '%d.%m.%Y') > datetime.strptime(contracts[4], '%d.%m.%Y'):
+                wContracts.tableContracts.item(row_number, 3).setForeground(QtGui.QColor(0, 128, 0))
+            
+            elif datetime.strptime(contracts[3], '%d.%m.%Y') < datetime.strptime(contracts[4], '%d.%m.%Y'):
+                wContracts.tableContracts.item(row_number, 3).setForeground(QtGui.QColor(255, 0, 255))
+
+    wContracts.tableContracts.setColumnHidden(0, True)
 
 
 ########## - Contract Details - ##########

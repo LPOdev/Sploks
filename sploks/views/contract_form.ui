@@ -473,9 +473,6 @@
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
-      <property name="tabKeyNavigation">
-       <bool>false</bool>
-      </property>
       <property name="showDropIndicator" stdset="0">
        <bool>false</bool>
       </property>
@@ -494,14 +491,11 @@
       <property name="sortingEnabled">
        <bool>false</bool>
       </property>
-      <attribute name="horizontalHeaderStretchLastSection">
+      <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
        <bool>true</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderCascadingSectionResizes">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <column>
        <property name="text">
