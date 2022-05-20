@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Contrats</string>
+   <string>Retours en retard</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -28,19 +28,6 @@
        <widget class="QLineEdit" name="lblSearchBox"/>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="chk_late">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string>Pas rendu</string>
-      </property>
-     </widget>
     </item>
     <item>
      <widget class="QTableWidget" name="tableContracts">

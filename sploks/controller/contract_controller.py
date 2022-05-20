@@ -13,12 +13,16 @@ def displayContracts():
     This function displays the contracts of one item
     """
     global wContracts
+
     wContracts = uic.loadUi('views/contracts_list.ui')    
     wContracts.tableContracts.horizontalHeader().setSectionResizeMode(1)
     
-    loadContracts(Contract.allWithParams())
+    ls_contracts = Contract.allWithParams()
+    loadContracts(ls_contracts)
 
     wContracts.lblSearchBox.textChanged.connect(filter_list)
+
+    wContracts.chk_late.stateChanged.connect(lambda: show_late(ls_contracts))
 
     wContracts.show()
 
@@ -27,6 +31,7 @@ def loadContracts(contracts_list):
     
     wContracts.tableContracts.setColumnCount(len(contracts_list[0])-1)
     wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Client", "Date", "Retour"])
+    wContracts.chk_late.setDisabled(False)
 
     for row_number, contracts in enumerate(contracts_list):
         wContracts.tableContracts.insertRow(row_number)
@@ -37,7 +42,7 @@ def loadContracts(contracts_list):
         
         if contracts[4] is None:
             if datetime.strptime(contracts[3], '%d.%m.%Y') < datetime.now():
-                wContracts.tableContracts.item(row_number, 3).setForeground(QtGui.QColor(255, 0, 0))                
+                wContracts.tableContracts.item(row_number, 3).setForeground(QtGui.QColor(255, 0, 0))          
 
         else:
             if datetime.strptime(contracts[3], '%d.%m.%Y') > datetime.strptime(contracts[4], '%d.%m.%Y'):
@@ -47,6 +52,22 @@ def loadContracts(contracts_list):
                 wContracts.tableContracts.item(row_number, 3).setForeground(QtGui.QColor(255, 0, 255))
 
     wContracts.tableContracts.setColumnHidden(0, True)
+
+def show_late(contracts_list):
+    
+
+    if wContracts.chk_late.checkState():
+        for row_number, contracts in enumerate(contracts_list):
+            match = False
+
+            if contracts[4] is None and datetime.strptime(contracts[3], '%d.%m.%Y') < datetime.now():
+                match = True
+
+            wContracts.tableContracts.setRowHidden(row_number, not match)
+    else:
+        for row_number, contracts in enumerate(contracts_list):
+            wContracts.tableContracts.setRowHidden(row_number, False)
+    
 
 
 ########## - Contract Details - ##########
