@@ -34,20 +34,27 @@ class Contract:
 
     @staticmethod
     def allWithParams():
-        result = crud.selectWithParams("contracts.id, CONCAT(customers.firstname, ' ', customers.lastname) as client, creationdate, plannedreturn, IF (effectivereturn is null, 0, 1) as returned",
+        result = crud.selectWithParams("contracts.id, CONCAT(customers.firstname, ' ', customers.lastname) as client, creationdate, plannedreturn, effectivereturn",
             "contracts",
             "INNER JOIN customers ON customer_id = customers.id")
 
+        
         contracts_list = []
         for r in result:
             created_on = r[2]
             planned_return = r[3]
+            return_Date = r[4]
+
             if r[2] is not None:
-                created_on = Helpers.formatDate(r[2])
+                created_on = Helpers.removeHours(r[2])
             
             if r[3] is not None:
-                planned_return = Helpers.formatDate(r[3])
+                planned_return = Helpers.removeHours(r[3])
+            
+            if r[4] is not None:
+                return_Date = Helpers.removeHours(r[4])
 
-            contracts_list.append([r[0], r[1], created_on, planned_return, r[4]])
+            contracts_list.append([r[0], r[1], created_on, planned_return, return_Date])
 
         return contracts_list
+        #return result
