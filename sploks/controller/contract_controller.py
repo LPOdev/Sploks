@@ -54,7 +54,6 @@ def loadContracts(contracts_list):
     wContracts.tableContracts.setColumnHidden(0, True)
 
 def show_late(contracts_list):
-    
 
     if wContracts.chk_late.checkState():
         for row_number, contracts in enumerate(contracts_list):
@@ -68,7 +67,25 @@ def show_late(contracts_list):
         for row_number, contracts in enumerate(contracts_list):
             wContracts.tableContracts.setRowHidden(row_number, False)
     
+def filter_list():
+    wContracts.chk_late.setDisabled(True)
+    wContracts.chk_late.setCheckState(False)
 
+    filter_txt = wContracts.lblSearchBox.text()
+
+    if filter_txt == "":
+        wContracts.chk_late.setDisabled(False)
+
+    for x in range(wContracts.tableContracts.rowCount()):
+        match = False
+        for y in range(wContracts.tableContracts.columnCount()):
+            found_item = wContracts.tableContracts.item(x,y)
+            txt = (found_item.text()).lower()
+            if txt.find(filter_txt.lower()) != -1:
+                match = True
+                break
+                
+        wContracts.tableContracts.setRowHidden(x, not match)
 
 ########## - Contract Details - ##########
 
@@ -106,20 +123,6 @@ def insertDetails():
     w_contract_details.lst_town.addItem(contract.town)
     w_contract_details.lst_mobile.addItem(contract.mobile)
     w_contract_details.lst_email.addItem(contract.email)
-
-def filter_list():
-    filter_txt = wContracts.lblSearchBox.text()
-
-    for x in range(wContracts.tableContracts.rowCount()):
-        match = False
-        for y in range(wContracts.tableContracts.columnCount()):
-            found_item = wContracts.tableContracts.item(x,y)
-            txt = (found_item.text()).lower()
-            if txt.find(filter_txt.lower()) != -1:
-                match = True
-                break
-                
-        wContracts.tableContracts.setRowHidden(x, not match)
 
 ########## - Contract Form - ##########
 
