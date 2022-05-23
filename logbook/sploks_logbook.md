@@ -20,3 +20,14 @@ Sprint 2 Review - Réunion présentielle avec Monsieur Xavier Carrel.
 User story terminée et validée, pourtant quelques petits détails à retravailler.
 
 Présenter la stratégie de test. Elle est aussi à revoir et à compléter avec plus de détails.
+
+## 20 mai 2022
+Sprint 3 Review- Réunion présentielle avec Monsieur Xavier Carrel.
+
+3 User Stories validées et terminées:
+- Ajuster le prix
+- Mettre à jour l'état d'un article
+- Afficher les contrats de location
+
+Une correction à apporter:
+- Dans la liste de choix d'articles, ne pas afficher les articles dont le status est "Terminé"
