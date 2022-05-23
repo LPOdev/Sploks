@@ -260,7 +260,7 @@ def openItemslist():
     wlistItems = uic.loadUi('views/contract_items.ui')
     table_items = wlistItems.tbl_items
 
-    form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock"))
+    form_load_items(Item.allWithColumns("items.id, itemnb, brand, model, stock","WHERE items.gearstate_id != 1"))
 
     wlistItems.lbl_serial.textChanged.connect(filter_list_items)
     table_items.cellClicked.connect(load_item_info)
