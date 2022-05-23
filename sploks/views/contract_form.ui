@@ -560,57 +560,19 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item row="1" column="1">
-       <widget class="QDateEdit" name="date_taken">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_23">
         <property name="maximumSize">
          <size>
-          <width>123</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDateEdit" name="date_toreturn">
-        <property name="maximumSize">
-         <size>
-          <width>123</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_22">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
+          <width>71</width>
           <height>27</height>
          </size>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
         </property>
         <property name="styleSheet">
          <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
         </property>
         <property name="text">
-         <string>A retourner le:</string>
+         <string>Pris le:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -652,38 +614,76 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_23">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_22">
         <property name="maximumSize">
          <size>
-          <width>71</width>
+          <width>150</width>
           <height>27</height>
          </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
         </property>
         <property name="styleSheet">
          <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
         </property>
         <property name="text">
-         <string>Pris le:</string>
+         <string>A retourner le:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="btn_notPaid">
+      <item row="1" column="1">
+       <widget class="QDateEdit" name="date_taken">
         <property name="maximumSize">
          <size>
-          <width>75</width>
+          <width>123</width>
           <height>26</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="date_toreturn">
+        <property name="maximumSize">
+         <size>
+          <width>123</width>
+          <height>26</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="chk_notTaken">
+        <property name="maximumSize">
+         <size>
+          <width>81</width>
+          <height>22</height>
          </size>
         </property>
         <property name="styleSheet">
          <string notr="true">font: 87 12pt &quot;Arial&quot;;</string>
         </property>
         <property name="text">
-         <string>Pas payé</string>
+         <string>Pas pris</string>
         </property>
         <property name="iconSize">
          <size>
@@ -693,19 +693,19 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="btn_notTaken">
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="chk_notPaid">
         <property name="maximumSize">
          <size>
-          <width>75</width>
-          <height>26</height>
+          <width>89</width>
+          <height>22</height>
          </size>
         </property>
         <property name="styleSheet">
          <string notr="true">font: 87 12pt &quot;Arial&quot;;</string>
         </property>
         <property name="text">
-         <string>Pas pris</string>
+         <string>Pas payé</string>
         </property>
         <property name="iconSize">
          <size>
@@ -745,7 +745,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="txt_notes"/>
+       <widget class="QTextEdit" name="txt_notes">
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -794,7 +798,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="drp_served">
+       <widget class="QComboBox" name="drp_tune">
         <property name="enabled">
          <bool>true</bool>
         </property>

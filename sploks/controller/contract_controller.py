@@ -7,6 +7,7 @@ from model.helpers import Helpers
 from model.item import Item
 from model.state import State
 from model.duration import Duration
+from model.staff import Staff
 
 def displayContracts():
     """
@@ -130,7 +131,9 @@ def displayForm():
     global wContractForm
     global tbl_customers
     global tbl_items
+    global total_price
 
+    total_price = 0.00
     wContractForm = uic.loadUi('views/contract_form.ui')
 
     tbl_customers = wContractForm.customers_table
@@ -154,14 +157,17 @@ def displayForm():
     wContractForm.date_paid.setHidden(True)
     wContractForm.date_taken.setHidden(True)
     wContractForm.drp_service.setHidden(True)
-    wContractForm.drp_served.setHidden(True)
-    wContractForm.btn_notPaid.setHidden(True)
-    wContractForm.btn_notTaken.setHidden(True)
+    wContractForm.drp_tune.setHidden(True)
+    wContractForm.chk_notPaid.setHidden(True)
+    wContractForm.chk_notTaken.setHidden(True)
     wContractForm.label_27.setHidden(True)
     wContractForm.txt_notes.setHidden(True)
     wContractForm.btn_send.setHidden(True)
 
-
+    today = datetime.today()
+    wContractForm.date_toreturn.setMinimumDateTime(today)
+    wContractForm.date_taken.setMinimumDateTime(today)
+    wContractForm.date_paid.setMinimumDateTime(today)
 
     wContractForm.lbl_name.textChanged.connect(filter_list_clients)
     wContractForm.lbl_firstname.textChanged.connect(filter_list_clients)
@@ -177,6 +183,9 @@ def displayForm():
     wContractForm.btn_openList.clicked.connect(openItemslist)
     wContractForm.btn_delete.clicked.connect(remove_item)
     wContractForm.btn_lock.clicked.connect(lock_items_table)
+    wContractForm.btn_send.clicked.connect(send_contract)   
+
+    form_load_staff(Staff.all())
 
     ### Shortcuts ###
     shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), wContractForm)  # Create the shortcut
@@ -185,6 +194,11 @@ def displayForm():
 
     wContractForm.show()
 
+def form_load_staff(list_staff):
+    
+    for staff in list_staff:
+        wContractForm.drp_service.addItem(staff[0]+" "+staff[1])
+        wContractForm.drp_tune.addItem(staff[0]+" "+staff[1])
 
 def form_load_customers(customers):
     tbl_customers.setColumnHidden(0, True)
@@ -236,6 +250,7 @@ def shortcut_used():
 
 
 def load_customer():
+    global customer
     clicked_id = tbl_customers.item(tbl_customers.currentRow(), 0).text()
 
     customer = Customer()
@@ -410,6 +425,7 @@ def reset_form():
                         "}")
 
 def getTotal():
+    global total_price
     total_price = 0.00
 
     for row in range(tbl_items.rowCount()):
@@ -457,9 +473,9 @@ def lock_items_table():
         wContractForm.date_paid.setHidden(False)
         wContractForm.date_taken.setHidden(False)
         wContractForm.drp_service.setHidden(False)
-        wContractForm.drp_served.setHidden(False)
-        wContractForm.btn_notPaid.setHidden(False)
-        wContractForm.btn_notTaken.setHidden(False)
+        wContractForm.drp_tune.setHidden(False)
+        wContractForm.chk_notPaid.setHidden(False)
+        wContractForm.chk_notTaken.setHidden(False)
         wContractForm.label_27.setHidden(False)
         wContractForm.txt_notes.setHidden(False)
         wContractForm.btn_send.setHidden(False)
@@ -477,13 +493,41 @@ def lock_items_table():
         wContractForm.date_paid.setHidden(True)
         wContractForm.date_taken.setHidden(True)
         wContractForm.drp_service.setHidden(True)
-        wContractForm.drp_served.setHidden(True)
-        wContractForm.btn_notPaid.setHidden(True)
-        wContractForm.btn_notTaken.setHidden(True)
+        wContractForm.drp_tune.setHidden(True)
+        wContractForm.chk_notPaid.setHidden(True)
+        wContractForm.chk_notTaken.setHidden(True)
         wContractForm.label_27.setHidden(True)
         wContractForm.txt_notes.setHidden(True)
         wContractForm.btn_send.setHidden(True)
     
     wContractForm.btn_openList.setEnabled(not button_status)
     
-    
+def send_contract():
+
+    take_on = wContractForm.date_taken.date()
+    paid_on = wContractForm.date_paid.date()
+
+    if wContractForm.chk_notPaid.checkState():
+        paid_on = "null"
+
+    if wContractForm.chk_notTaken.checkState():
+        take_on = "null"
+
+    new_contract = [
+        datetime.today(),
+        "null",
+        wContractForm.date_toreturn.date(),
+        customer.id,
+        wContractForm.txt_notes.toPlainText(),
+        total_price,
+        take_on,
+        paid_on,
+        0,
+        0,
+        wContractForm.drp_service.currentIndex() + 1,
+        wContractForm.drp_tune.currentIndex() + 1
+    ]
+
+    print("Take on: ", take_on)
+    print("Paid on: ", paid_on)
+    print(new_contract)
