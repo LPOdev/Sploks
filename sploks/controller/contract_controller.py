@@ -142,6 +142,25 @@ def displayForm():
     wContractForm.label_21.setHidden(True)
     wContractForm.btn_openList.setHidden(True)
     wContractForm.btn_delete.setHidden(True)
+    wContractForm.btn_lock.setHidden(True)
+
+    # Hide footer
+    wContractForm.label_22.setHidden(True)
+    wContractForm.label_23.setHidden(True)
+    wContractForm.label_24.setHidden(True)
+    wContractForm.label_25.setHidden(True)
+    wContractForm.label_26.setHidden(True)
+    wContractForm.date_toreturn.setHidden(True)
+    wContractForm.date_paid.setHidden(True)
+    wContractForm.date_taken.setHidden(True)
+    wContractForm.drp_service.setHidden(True)
+    wContractForm.drp_served.setHidden(True)
+    wContractForm.btn_notPaid.setHidden(True)
+    wContractForm.btn_notTaken.setHidden(True)
+    wContractForm.label_27.setHidden(True)
+    wContractForm.txt_notes.setHidden(True)
+    wContractForm.btn_send.setHidden(True)
+
 
 
     wContractForm.lbl_name.textChanged.connect(filter_list_clients)
@@ -157,6 +176,7 @@ def displayForm():
 
     wContractForm.btn_openList.clicked.connect(openItemslist)
     wContractForm.btn_delete.clicked.connect(remove_item)
+    wContractForm.btn_lock.clicked.connect(lock_items_table)
 
     ### Shortcuts ###
     shrtClients = QtWidgets.QShortcut(QtGui.QKeySequence('Alt+d'), wContractForm)  # Create the shortcut
@@ -248,6 +268,7 @@ def load_customer():
     wContractForm.label_21.setHidden(False)
     wContractForm.btn_openList.setHidden(False)
     wContractForm.btn_delete.setHidden(False)
+    wContractForm.btn_lock.setHidden(False)
 
 
     openItemslist()
@@ -417,3 +438,52 @@ def save_item_state():
                 test_list.append(value)
         
         result = item.save(test_list[1:-1])
+
+def lock_items_table():
+    wlistItems.close()
+
+    button_status = wContractForm.btn_openList.isEnabled()
+
+    if button_status:
+        wContractForm.btn_lock.setIcon(QtGui.QIcon("views/res/lock_icon.png"))
+
+        # Show footer
+        wContractForm.label_22.setHidden(False)
+        wContractForm.label_23.setHidden(False)
+        wContractForm.label_24.setHidden(False)
+        wContractForm.label_25.setHidden(False)
+        wContractForm.label_26.setHidden(False)
+        wContractForm.date_toreturn.setHidden(False)
+        wContractForm.date_paid.setHidden(False)
+        wContractForm.date_taken.setHidden(False)
+        wContractForm.drp_service.setHidden(False)
+        wContractForm.drp_served.setHidden(False)
+        wContractForm.btn_notPaid.setHidden(False)
+        wContractForm.btn_notTaken.setHidden(False)
+        wContractForm.label_27.setHidden(False)
+        wContractForm.txt_notes.setHidden(False)
+        wContractForm.btn_send.setHidden(False)
+
+    else:
+        wContractForm.btn_lock.setIcon(QtGui.QIcon("views/res/unlock_icon.png"))
+
+        # Hide footer
+        wContractForm.label_22.setHidden(True)
+        wContractForm.label_23.setHidden(True)
+        wContractForm.label_24.setHidden(True)
+        wContractForm.label_25.setHidden(True)
+        wContractForm.label_26.setHidden(True)
+        wContractForm.date_toreturn.setHidden(True)
+        wContractForm.date_paid.setHidden(True)
+        wContractForm.date_taken.setHidden(True)
+        wContractForm.drp_service.setHidden(True)
+        wContractForm.drp_served.setHidden(True)
+        wContractForm.btn_notPaid.setHidden(True)
+        wContractForm.btn_notTaken.setHidden(True)
+        wContractForm.label_27.setHidden(True)
+        wContractForm.txt_notes.setHidden(True)
+        wContractForm.btn_send.setHidden(True)
+    
+    wContractForm.btn_openList.setEnabled(not button_status)
+    
+    
