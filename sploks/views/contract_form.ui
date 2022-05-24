@@ -842,26 +842,52 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="btn_send">
-      <property name="minimumSize">
-       <size>
-        <width>102</width>
-        <height>35</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>102</width>
-        <height>35</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Conclure</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="btn_send">
+        <property name="minimumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Conclure</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_print">
+        <property name="minimumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Imprimer</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

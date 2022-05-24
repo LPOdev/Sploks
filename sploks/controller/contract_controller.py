@@ -164,6 +164,7 @@ def displayForm():
     wContractForm.label_27.setHidden(True)
     wContractForm.txt_notes.setHidden(True)
     wContractForm.btn_send.setHidden(True)
+    wContractForm.btn_print.setHidden(True)
 
     today = datetime.today()
     wContractForm.date_toreturn.setMinimumDateTime(today)
@@ -504,6 +505,7 @@ def lock_items_table():
     wContractForm.btn_openList.setEnabled(not button_status)
     
 def send_contract():
+    lock_form()
     new_contract = Contract()
     my_sql_date = "%Y-%m-%d %H:%M:%S"
     date_format_string = "dd.MM.yyyy"
@@ -542,6 +544,8 @@ def send_contract():
 
     rent_items(new_contract)
 
+    wContractForm.btn_print.setHidden(False)
+
 def rent_items(contract):
     chosen_items = []
 
@@ -569,3 +573,53 @@ def rent_items(contract):
         )
         
         Item.save_rented(rented_item)
+
+def lock_form():
+    readonly_style = "QLineEdit{background-color : rgba(0,0,0,0);border: 0px}"
+
+    if wContractForm.chk_notPaid.checkState():
+        wContractForm.chk_notPaid.setEnabled(False)
+        wContractForm.date_paid.setHidden(True)
+        
+    else:
+        wContractForm.chk_notPaid.setHidden(True)
+        wContractForm.date_paid.setReadOnly(True)
+
+
+    if wContractForm.chk_notTaken.checkState():
+        wContractForm.chk_notTaken.setEnabled(False)
+        wContractForm.date_taken.setHidden(True)
+
+    else:
+        wContractForm.chk_notTaken.setHidden(True)
+        wContractForm.date_taken.setReadOnly(True)
+
+    # Buttons & checkboxes
+    wContractForm.btn_send.setHidden(True)
+    wContractForm.btn_lock.setEnabled(False)
+    wContractForm.btn_delete.setEnabled(False)
+    
+    # Dropboxes
+    wContractForm.drp_service.setEnabled(False)
+    wContractForm.drp_tune.setEnabled(False)
+    
+    # DateEdits
+    wContractForm.date_toreturn.setReadOnly(True)
+    
+    # Client informations
+    wContractForm.lbl_phone.setReadOnly(True)
+    wContractForm.lbl_phonefix.setReadOnly(True)
+    wContractForm.lbl_address.setReadOnly(True)
+    wContractForm.lbl_email.setReadOnly(True)
+    wContractForm.lbl_town.setReadOnly(True)
+    wContractForm.lbl_npa.setReadOnly(True)
+
+    wContractForm.lbl_phone.setStyleSheet(readonly_style)
+    wContractForm.lbl_phonefix.setStyleSheet(readonly_style)
+    wContractForm.lbl_address.setStyleSheet(readonly_style)
+    wContractForm.lbl_email.setStyleSheet(readonly_style)
+    wContractForm.lbl_town.setStyleSheet(readonly_style)
+    wContractForm.lbl_npa.setStyleSheet(readonly_style)
+
+
+    
