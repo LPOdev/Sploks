@@ -8,7 +8,7 @@ from model.helpers import Helpers
 from model.item import Item
 from model.state import State
 from model.duration import Duration
-from model.staff import Staff
+from model.staff import Staff 
 
 def displayContracts():
     """
@@ -537,7 +537,35 @@ def send_contract():
         wContractForm.drp_service.currentIndex() + 1,
         wContractForm.drp_tune.currentIndex() + 1,
     )
-    # print(new_contract)
 
     new_contract.create(new_contract_informations)
 
+    rent_items(new_contract)
+
+def rent_items(contract):
+    chosen_items = []
+
+    for row in range(tbl_items.rowCount()):
+        row_items = [row+1]
+        
+        for col in range(tbl_items.columnCount()):
+            tst_item = tbl_items.item(row, col).text()
+            row_items.append(tst_item)
+
+        chosen_items.append(row_items)
+
+    for x in range(len(chosen_items)):
+        item.load(chosen_items[x][1])
+        
+        rented_item = (
+            item.id,
+            contract.id,
+            Duration.findId(chosen_items[x][4])['id'],
+            item.gear_state_id,
+            chosen_items[x][6],
+            chosen_items[x][3],
+            chosen_items[x][0],
+            0
+        )
+        
+        Item.save_rented(rented_item)

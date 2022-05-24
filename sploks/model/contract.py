@@ -32,8 +32,8 @@ class Contract:
         columns = "creationdate, plannedreturn, customer_id, notes, total, takenon, paidon, help_staff_id, tune_staff_id"
 
         new_id = crud.createOne("contracts", columns, values)
-        print(new_id)
-        #self.load(new_id)
+        #print(new_id)
+        self.load(new_id)
 
     @staticmethod
     def all():
@@ -44,7 +44,6 @@ class Contract:
         result = crud.selectWithParams("contracts.id, CONCAT(customers.firstname, ' ', customers.lastname) as client, creationdate, plannedreturn, effectivereturn",
             "contracts",
             "INNER JOIN customers ON customer_id = customers.id")
-
         
         contracts_list = []
         for r in result:
@@ -64,4 +63,3 @@ class Contract:
             contracts_list.append([r[0], r[1], created_on, planned_return, return_Date])
 
         return contracts_list
-        #return result

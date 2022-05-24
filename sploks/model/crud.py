@@ -93,7 +93,6 @@ def createOne(table, columns, values):
     """
     try:
         query = f"INSERT INTO {table} ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        print(query)
         cur.execute(query, values)
         con.commit()
         return cur.lastrowid
@@ -155,6 +154,17 @@ def selectDistinct(columns, table, params):
         query = f"SELECT DISTINCT {columns} FROM {table} {params}"
         cur.execute(query)
         return cur.fetchall()
+    except mysql.connector.Error as sqlError:
+        print(sqlError)
+    except:
+        "Unknown error"
+
+def insert_rent_item(values):
+    try:
+        columns = "item_id, contract_id, duration_id, gearstate_id, price, comment, linenb, partialreturn"
+        query = f"INSERT INTO renteditems ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(query, values)
+        con.commit()
     except mysql.connector.Error as sqlError:
         print(sqlError)
     except:

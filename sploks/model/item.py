@@ -111,3 +111,7 @@ class Item:
         """
         return crud.selectWithParams("*", "items",
                                      f"INNER JOIN renteditems ON items.id = item_id INNER JOIN contracts ON contract_id = contracts.id INNER JOIN customers ON customer_id = customers.id WHERE items.id = {id}")
+
+    @staticmethod
+    def save_rented(values):
+        crud.insert_rent_item(values)
