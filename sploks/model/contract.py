@@ -27,6 +27,13 @@ class Contract:
         self.mobile = contract_infos['mobile']
         self.phone = contract_infos['phone']
         self.email = contract_infos['email']
+    
+    def create(self, values):
+        columns = "creationdate, plannedreturn, customer_id, notes, total, takenon, paidon, help_staff_id, tune_staff_id"
+
+        new_id = crud.createOne("contracts", columns, values)
+        print(new_id)
+        #self.load(new_id)
 
     @staticmethod
     def all():

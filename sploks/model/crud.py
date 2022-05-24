@@ -1,3 +1,4 @@
+from os import sep
 from const import *
 
 cur = con.cursor()
@@ -91,14 +92,15 @@ def createOne(table, columns, values):
     :return: The last row id of the table.
     """
     try:
-        query = f"INSERT INTO {table} ({columns}) VALUES ({values})"
-        cur.execute(query)
+        query = f"INSERT INTO {table} ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        print(query)
+        cur.execute(query, values)
         con.commit()
-        return cur.getlastrowid()
+        return cur.lastrowid
     except mysql.connector.Error as sqlError:
         print(sqlError)
     except:
-        "Unknown error"
+        return "Unknown error"
 
 
 def selectOneWithParams(columns, table, params):

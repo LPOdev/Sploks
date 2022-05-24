@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from datetime import datetime
 from PyQt5 import QtWidgets, QtGui,uic
 
@@ -503,31 +504,40 @@ def lock_items_table():
     wContractForm.btn_openList.setEnabled(not button_status)
     
 def send_contract():
+    new_contract = Contract()
+    my_sql_date = "%Y-%m-%d %H:%M:%S"
+    date_format_string = "dd.MM.yyyy"
 
-    take_on = wContractForm.date_taken.date()
-    paid_on = wContractForm.date_paid.date()
+    return_date = f"{Helpers.dateToSQL((wContractForm.date_toreturn.dateTime()).toString(date_format_string))}"
+    today = f"{(datetime.today()).strftime(my_sql_date)}"
 
     if wContractForm.chk_notPaid.checkState():
-        paid_on = "null"
+        paid_on = None
+    else:
+        paid_on = f"{Helpers.dateToSQL((wContractForm.date_paid.dateTime()).toString(date_format_string))}"
 
     if wContractForm.chk_notTaken.checkState():
-        take_on = "null"
+        take_on = None
+    else:
+        take_on = f"{Helpers.dateToSQL((wContractForm.date_taken.dateTime()).toString(date_format_string))}"
 
-    new_contract = [
-        datetime.today(),
-        "null",
-        wContractForm.date_toreturn.date(),
+    if wContractForm.txt_notes.toPlainText() == "":
+        notes = None
+    else:
+        notes = wContractForm.txt_notes.toPlainText()
+    
+    new_contract_informations = (
+        today,
+        return_date,
         customer.id,
-        wContractForm.txt_notes.toPlainText(),
+        notes,
         total_price,
         take_on,
         paid_on,
-        0,
-        0,
         wContractForm.drp_service.currentIndex() + 1,
-        wContractForm.drp_tune.currentIndex() + 1
-    ]
+        wContractForm.drp_tune.currentIndex() + 1,
+    )
+    # print(new_contract)
 
-    print("Take on: ", take_on)
-    print("Paid on: ", paid_on)
-    print(new_contract)
+    new_contract.create(new_contract_informations)
+
