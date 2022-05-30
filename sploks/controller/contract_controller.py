@@ -23,7 +23,7 @@ from model.staff import Staff
 
 def displayContracts():
     """
-    This function displays the contracts of one item
+    It loads a QTableWidget with data from a list of objects
     """
     global wContracts
 
@@ -41,6 +41,11 @@ def displayContracts():
 
 
 def loadContracts(contracts_list):
+    """
+    It loads a list of lists into a table widget
+    
+    :param contracts_list: list of lists, each list contains the data for one row
+    """
     
     wContracts.tableContracts.setColumnCount(len(contracts_list[0])-1)
     wContracts.tableContracts.setHorizontalHeaderLabels(["Id", "Client", "Date", "Retour"])
@@ -67,6 +72,11 @@ def loadContracts(contracts_list):
     wContracts.tableContracts.setColumnHidden(0, True)
 
 def show_late(contracts_list):
+    """
+    If the checkbox is checked, then hide all rows that are not late
+    
+    :param contracts_list: list of lists, each list contains the data for one row in the table
+    """
 
     if wContracts.chk_late.checkState():
         for row_number, contracts in enumerate(contracts_list):
@@ -81,6 +91,9 @@ def show_late(contracts_list):
             wContracts.tableContracts.setRowHidden(row_number, False)
     
 def filter_list():
+    """
+    If the user enters a search term, the function hides all rows that don't contain the search term.
+    """
     wContracts.chk_late.setDisabled(True)
     wContracts.chk_late.setCheckState(False)
 
@@ -142,6 +155,9 @@ def insertDetails():
 ########## - Contract Form - ##########
 
 def displayForm():
+    """
+    It loads the contract form and connects all the signals and slots.
+    """
     global wContractForm
     global tbl_customers
     global tbl_items
@@ -211,12 +227,23 @@ def displayForm():
     wContractForm.show()
 
 def form_load_staff(list_staff):
+    """
+    It takes a list of lists, and adds the first and second elements of each list to two different
+    dropdown boxes
+    
+    :param list_staff: list of tuples containing staff names
+    """
     
     for staff in list_staff:
         wContractForm.drp_service.addItem(staff[0]+" "+staff[1])
         wContractForm.drp_tune.addItem(staff[0]+" "+staff[1])
 
 def form_load_customers(customers):
+    """
+    It loads the customers into the table.
+    
+    :param customers: list of tuples
+    """
     tbl_customers.setColumnHidden(0, True)
     tbl_items.setColumnHidden(0, True)
     tbl_customers.horizontalHeader().setSectionResizeMode(1)
@@ -230,6 +257,11 @@ def form_load_customers(customers):
 
 
 def filter_list_clients():
+    """
+    It takes the values of the labels and searches for them in the table.
+    If the value is found, the row is shown.
+    If the value is not found, the row is hidden.
+    """
     search_client = [
         (wContractForm.lbl_name.text()).lower(),
         (wContractForm.lbl_firstname.text()).lower(),
@@ -261,11 +293,17 @@ def filter_list_clients():
 
 
 def shortcut_used():
+    """
+    If the user has selected a row in the table, load the customer
+    """
     if tbl_customers.item(tbl_customers.currentRow(), 0) is not None:
         load_customer()
 
 
 def load_customer():
+    """
+    It loads the customer's data into the contract form
+    """
     global customer
     clicked_id = tbl_customers.item(tbl_customers.currentRow(), 0).text()
 
@@ -306,6 +344,9 @@ def load_customer():
 
 
 def openItemslist():
+    """
+    It opens a window with a table that shows all the items in the database
+    """
     global wlistItems
     global table_items
 
@@ -328,6 +369,11 @@ def openItemslist():
 
 
 def form_load_items(list_items):    
+    """
+    It loads a list of items into a table widget
+    
+    :param list_items: list of lists, each list is a row of data
+    """
     durations_list = Duration.all()
     states_list = State.all()
 
@@ -351,6 +397,9 @@ def form_load_items(list_items):
 
 
 def filter_list_items():
+    """
+    It filters the items in the table widget based on the text in the line edit
+    """
     itemNb = (wlistItems.lbl_serial.text()).lower()
 
     for x in range(table_items.rowCount()):
@@ -364,6 +413,9 @@ def filter_list_items():
 
 
 def load_item_info():
+    """
+    It loads the item info from the database and displays it in the GUI.
+    """
     global item
     wlistItems.drp_time.currentIndexChanged.connect(load_price)
     wlistItems.drp_state.currentIndexChanged.connect(load_price)
@@ -389,6 +441,9 @@ def load_item_info():
                         "}")
 
 def load_price():
+    """
+    It takes the current index of two dropdown boxes, and uses them to query a database for a price
+    """
     tst_duration = wlistItems.drp_time.currentIndex() + 1
     tst_state = wlistItems.drp_state.currentIndex() + 1
 
@@ -400,6 +455,9 @@ def load_price():
         wlistItems.lbl_price.setValue(float(0))
 
 def add_item():
+    """
+    It adds a row to a table widget
+    """
     description = wlistItems.lbl_brand.text() + " " + wlistItems.lbl_model.text() + " " + str(
         item.size) + " (" + wlistItems.lbl_code.text() + ")"
     
@@ -424,6 +482,9 @@ def add_item():
     reset_form()
 
 def reset_form():
+    """
+    It resets the form to its default state.
+    """
     wlistItems.drp_state.setCurrentIndex(0)
     wlistItems.lbl_serial.setText("")
     wlistItems.lbl_brand.setText("")
@@ -441,6 +502,9 @@ def reset_form():
                         "}")
 
 def getTotal():
+    """
+    It loops through the table and adds the price of each item to the total price
+    """
     global total_price
     total_price = 0.00
 
@@ -450,11 +514,17 @@ def getTotal():
     wContractForm.lbl_price.setText('Prix: CHF ' + str(total_price))
 
 def remove_item():
+    """
+    If the current row is not empty, remove the current row and call the getTotal() function
+    """
     if(tbl_items.item(tbl_items.currentRow(), 0) != None):
         tbl_items.removeRow(tbl_items.currentRow())
         getTotal()
 
 def save_item_state():
+    """
+    It takes the current index of a dropdown menu, adds 1 to it, and then saves it to a database
+    """
     actual_state = wlistItems.drp_state.currentIndex() + 1
     
     test_list = []
@@ -472,6 +542,9 @@ def save_item_state():
         result = item.save(test_list[1:-1])
 
 def lock_items_table():
+    """
+    It's a function that locks the items table and shows the footer of the contract form.
+    """
     wlistItems.close()
 
     button_status = wContractForm.btn_openList.isEnabled()
@@ -519,6 +592,9 @@ def lock_items_table():
     wContractForm.btn_openList.setEnabled(not button_status)
     
 def send_contract():
+    """
+    It takes the data from the form and creates a new contract in the database
+    """
     lock_form()
     new_contract = Contract()
     my_sql_date = "%Y-%m-%d %H:%M:%S"
@@ -561,6 +637,13 @@ def send_contract():
     wContractForm.btn_print.setHidden(False)
 
 def rent_items(contract, help_staff, tune_staff):
+    """
+    It takes the data from the table and saves it to the database
+    
+    :param contract: a contract object
+    :param help_staff: the name of the person who helped the customer
+    :param tune_staff: the name of the person who tuned the skis
+    """
     chosen_items = []
 
     for row in range(tbl_items.rowCount()):
@@ -614,6 +697,9 @@ def rent_items(contract, help_staff, tune_staff):
     ]
 
 def lock_form():
+    """
+    It locks the form so that the user can't edit it anymore.
+    """
     readonly_style = "QLineEdit{background-color : rgba(0,0,0,0);border: 0px}"
 
     if wContractForm.chk_notPaid.checkState():
@@ -663,7 +749,9 @@ def lock_form():
     wContractForm.txt_notes.setStyleSheet("QTextEdit{background-color: rgba(0, 0, 0, 0);}")
 
 def print_contract():
-    
+    """
+    It creates a PDF file with the data from the list "to_print"
+    """
     width,height = A4
     logo = "logo-sports-time.png"
     title = "contrat.pdf"
@@ -784,8 +872,6 @@ def print_contract():
             w, h = message.wrap(500, 15)
             message.drawOn(doc, 30, hauteur - h)
             hauteur -= h
-
-
 
     doc.drawString(width/6, 600, "Le matériel doit être rendu propre, une surtaxe de Frs 10.- peut être demandée")
 

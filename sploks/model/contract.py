@@ -29,6 +29,11 @@ class Contract:
 
     
     def create(self, values):
+        """
+        It creates a new contract in the database and then loads it into the program
+        
+        :param values: ('2020-01-01', '2020-01-02', '1', '', '0', '2020-01-01', '2020-01-01', '1', '1')
+        """
         columns = "creationdate, plannedreturn, customer_id, notes, total, takenon, paidon, help_staff_id, tune_staff_id"
 
         new_id = crud.createOne("contracts", columns, values)
@@ -37,10 +42,18 @@ class Contract:
 
     @staticmethod
     def all():
+        """
+        It returns all the rows from the contracts table
+        :return: A list of dictionaries.
+        """
         return crud.selectAll("contracts")
 
     @staticmethod
     def allWithParams():
+        """
+        It takes a query, executes it, and then returns a list of lists
+        :return: A list of lists.
+        """
         result = crud.selectWithParams("contracts.id, CONCAT(customers.firstname, ' ', customers.lastname) as client, creationdate, plannedreturn, effectivereturn",
             "contracts",
             "INNER JOIN customers ON customer_id = customers.id")
