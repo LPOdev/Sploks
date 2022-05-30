@@ -1,6 +1,16 @@
-from asyncio.windows_events import NULL
 from datetime import datetime
 from PyQt5 import QtWidgets, QtGui,uic
+import locale
+locale.setlocale(locale.LC_TIME, "fr_FR") # Français
+
+# reportlab
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import inch
+from reportlab.platypus import Paragraph
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.pdfgen import canvas
+
+import os
 
 from model.contract import Contract
 from model.customer import Customer
@@ -8,7 +18,8 @@ from model.helpers import Helpers
 from model.item import Item
 from model.state import State
 from model.duration import Duration
-from model.staff import Staff 
+from model.staff import Staff
+
 
 def displayContracts():
     """
@@ -185,7 +196,8 @@ def displayForm():
     wContractForm.btn_openList.clicked.connect(openItemslist)
     wContractForm.btn_delete.clicked.connect(remove_item)
     wContractForm.btn_lock.clicked.connect(lock_items_table)
-    wContractForm.btn_send.clicked.connect(send_contract)   
+    wContractForm.btn_send.clicked.connect(send_contract)
+    wContractForm.btn_print.clicked.connect(print_contract)   
 
     form_load_staff(Staff.all())
 
@@ -558,6 +570,7 @@ def rent_items(contract):
 
         chosen_items.append(row_items)
 
+    items_toPrint = []
     for x in range(len(chosen_items)):
         item.load(chosen_items[x][1])
         
@@ -573,6 +586,31 @@ def rent_items(contract):
         )
         
         Item.save_rented(rented_item)
+
+        items_toPrint.append([chosen_items[x][2], chosen_items[x][3], item.geartype_id, chosen_items[x][4], chosen_items[x][6]])
+
+    print()
+    global to_print
+    to_print = [
+        contract.id,
+        customer.lastname,
+        customer.firstname,
+        customer.address,
+        customer.npa,
+        customer.town,
+        customer.mobile,
+        customer.phone,
+        customer.email,
+        contract.planned_return,
+        contract.creation_date,
+        contract.total,
+        contract.takenon,
+        contract.paidon,
+        contract.notes,
+        contract.help_staff,
+        contract.tune_staff,
+        items_toPrint
+    ]
 
 def lock_form():
     readonly_style = "QLineEdit{background-color : rgba(0,0,0,0);border: 0px}"
@@ -622,4 +660,134 @@ def lock_form():
     wContractForm.lbl_town.setStyleSheet(readonly_style)
     wContractForm.lbl_npa.setStyleSheet(readonly_style)
     wContractForm.txt_notes.setStyleSheet("QTextEdit{background-color: rgba(0, 0, 0, 0);}")
+
+def print_contract():
     
+    width,height = A4
+    logo = "logo-sports-time.png"
+    title = "contrat.pdf"
+
+    nb_contrat = to_print[0]
+    nom = to_print[1]
+    firstname = to_print[2]
+    address = to_print[3]
+    npa = to_print[4]
+    town = to_print[5]
+    phone = to_print[6]
+    phonefix = to_print[7]
+    email = to_print[8]
+    retour = to_print[9]
+    today = to_print[10]
+    total = to_print[11]
+    takeon = to_print[12]
+    paidon = to_print[13]
+    notes = to_print[14]
+    service = to_print[15]
+    tune = to_print[16]
+    loc_items = to_print[17]
+
+    doc = canvas.Canvas("contrat.pdf", pagesize = A4)
+    doc.setTitle(f"Contrat {nb_contrat}")
+    doc.setLineWidth(.3)
+
+    doc.drawInlineImage(logo, width/6, 650, 6*inch, 2*inch)
+
+    doc.setFont('Helvetica-Bold', 15)
+    doc.drawString(30, 620, f"Contrat de location {nb_contrat}")
+
+    ##### - CLIENT INFORMATION - #####
+    doc.setFont('Helvetica-Bold', 12)
+    doc.drawString(30, 580, f"Nom: {nom}")
+    doc.line(65, 578, 345, 578)
+
+    doc.drawString(350, 580, f"Prénom: {firstname}")
+    doc.line(400, 578, 550, 578)
+
+    doc.drawString(30, 560, f"Adresse: {address}")
+    doc.line(85, 558, 550, 558)
+
+    doc.drawString(30, 540, f"Ville: {town}")
+    doc.line(60, 538, 345, 538)
+
+    doc.drawString(350, 540, f"Code postal: {npa}")
+    doc.line(425, 538, 550, 538)
+
+    doc.drawString(30, 520, f"Tél: {phonefix}")
+    doc.line(55, 518, 345, 518)
+
+    doc.drawString(350, 520, f"Natel: {phone}")
+    doc.line(385, 518, 550, 518)
+
+    doc.drawString(30, 500, f"Email: {email}")
+    doc.line(70, 498, 550, 498)
+
+    ##### - DATES - #####
+    doc.drawString(30, 480, f"Date de location: {today}")
+    #doc.line(130, 478, 345, 478)
+
+    doc.drawString(350, 480, f"Date de retour: {retour}")
+    #doc.line(120, 458, 345, 458)
+
+    ##### - ITEMS - #####
+    doc.setFont('Helvetica', 10)
+
+    # TABLE HEADERS
+    doc.drawString(50, 450, "No")
+    doc.drawString(150, 450, "Objet")
+    doc.drawString(350, 450, "Cat")
+    doc.drawString(390, 450, "Durée")
+    doc.drawString(520, 450, "Montant")
+    row_height = 435
+
+    # TABLE CONTENT
+    for i in range(len(loc_items)):
+        doc.drawString(30, row_height, f"{i+1}")
+
+        doc.drawString(50, row_height, f"{loc_items[i][0]}")
+        doc.drawString(150, row_height, f"{loc_items[i][1]}")
+        doc.drawString(350, row_height, f"{loc_items[i][2]}")
+        doc.drawString(390, row_height, f"{loc_items[i][3]}")
+        doc.drawString(510, row_height, f"SFr. {loc_items[i][4]}")
+        
+        row_height -= 15
+
+    ##### - Contract info - #####
+    h = row_height - 50
+
+    doc.setFont('Helvetica-Bold', 18)
+    doc.drawString(400, h, f"Total: SFr. {total}")
+
+    doc.setFont('Helvetica', 10)
+    doc.drawString(30, h, f"Payé le {paidon}")
+    doc.drawString(200, h, f"Pris le {takeon}")
+
+    doc.drawString(30, h-20, f"Servi par {service}")
+    doc.drawString(200, h-20, f"Matériel réglé par {tune}")
+
+    doc.drawString(200, h-20, f"Matériel réglé par {tune}")
+
+    doc.drawString(300, h-60, "Signature du client:")
+    doc.line(300, h-62, 550, h-62)
+
+    doc.drawString(30, h-90, "Notes diverses:")
+    doc.drawString(40, h-105, f"{notes}")
+
+    hauteur = 150
+
+    message_style = ParagraphStyle('Normal')
+
+    with open('rights.txt') as f:
+        for line in f:
+            message = line.replace('\n', '<br />')
+            message = Paragraph((message).encode('latin1'), message_style)
+            w, h = message.wrap(500, 15)
+            message.drawOn(doc, 30, hauteur - h)
+            hauteur -= h
+
+
+
+    doc.drawString(width/6, 600, "Le matériel doit être rendu propre, une surtaxe de Frs 10.- peut être demandée")
+
+    doc.save()
+
+    os.startfile("contrat.pdf")
