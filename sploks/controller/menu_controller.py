@@ -4,7 +4,7 @@ from controller import staff_controller as staffs
 from controller import stock_controller as stocks
 from controller import contract_controller as contracts
 
-sploks_version = "0.8.0"
+sploks_version = "0.9.0"
 
 def displayMenu(self):
     """

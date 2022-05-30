@@ -9,20 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1006</width>
-    <height>592</height>
+    <width>1010</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1006</width>
-    <height>458</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>2000</width>
-    <height>2000</height>
+    <width>1010</width>
+    <height>620</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -441,6 +435,29 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="btn_lock">
+        <property name="maximumSize">
+         <size>
+          <width>42</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>res/unlock_icon.png</normaloff>res/unlock_icon.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btn_delete">
         <property name="maximumSize">
          <size>
@@ -467,6 +484,12 @@
     </item>
     <item>
      <widget class="QTableWidget" name="equipement_table">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>104</height>
+       </size>
+      </property>
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
       </property>
@@ -530,6 +553,282 @@
      </widget>
     </item>
     <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_23">
+        <property name="maximumSize">
+         <size>
+          <width>71</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Pris le:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDateEdit" name="date_paid">
+        <property name="maximumSize">
+         <size>
+          <width>123</width>
+          <height>26</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_24">
+        <property name="maximumSize">
+         <size>
+          <width>83</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Payé le:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_22">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>A retourner le:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDateEdit" name="date_taken">
+        <property name="maximumSize">
+         <size>
+          <width>123</width>
+          <height>26</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="date_toreturn">
+        <property name="maximumSize">
+         <size>
+          <width>123</width>
+          <height>26</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="chk_notTaken">
+        <property name="maximumSize">
+         <size>
+          <width>81</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 12pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Pas pris</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="chk_notPaid">
+        <property name="maximumSize">
+         <size>
+          <width>89</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 12pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Pas payé</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QLabel" name="label_27">
+        <property name="minimumSize">
+         <size>
+          <width>158</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>158</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Commentaires:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="txt_notes">
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_25">
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Servi par:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="drp_service">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_26">
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Réglage par:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="drp_tune">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>10</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial&quot;;</string>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="lbl_price">
       <property name="styleSheet">
        <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
@@ -541,6 +840,54 @@
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="btn_send">
+        <property name="minimumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Conclure</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_print">
+        <property name="minimumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>102</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 87 14pt &quot;Arial Black&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Imprimer</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
