@@ -5,6 +5,8 @@ locale.setlocale(locale.LC_TIME, "fr_FR") # Français
 
 # This class contains a set of helper functions that are used by the other classes
 class Helpers:
+    global date_sql
+    date_sql = '%Y-%m-%d %H:%M:%S'
 
     @staticmethod
     def formatDate(date):
@@ -17,7 +19,6 @@ class Helpers:
         if date is None:
             return None
         else:
-            date_sql = '%Y-%m-%d %H:%M:%S'
             date = datetime.datetime.strptime(str(date), date_sql)
             return date.strftime("%d %B %Y")
     
@@ -29,3 +30,13 @@ class Helpers:
             date_sql = '%Y-%m-%d %H:%M:%S'
             date = datetime.datetime.strptime(str(date), date_sql)
             return date.strftime("%d.%m.%Y")
+
+    @staticmethod
+    def dateToSQL(date):
+
+        if date is None:
+            return None
+        else:
+            
+            date = datetime.datetime.strptime(str(date),"%d.%m.%Y")
+            return date.strftime(date_sql)

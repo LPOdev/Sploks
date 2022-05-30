@@ -75,12 +75,12 @@ class Item:
                                      "items", "INNER JOIN geartypes ON geartypes.id = items.geartype_id")
     
     @staticmethod
-    def allWithColumns(columns):
+    def allWithColumns(columns, params = ""):
         """
         This function returns all the items in the database
         :return: A list of dictionaries.
         """
-        return crud.selectWithParams(columns, "items", "INNER JOIN geartypes ON geartypes.id = items.geartype_id")
+        return crud.selectWithParams(columns, "items", f"INNER JOIN geartypes ON geartypes.id = items.geartype_id {params}")
 
     @staticmethod
     def getIdBySerialNumber(serial):
@@ -111,3 +111,7 @@ class Item:
         """
         return crud.selectWithParams("*", "items",
                                      f"INNER JOIN renteditems ON items.id = item_id INNER JOIN contracts ON contract_id = contracts.id INNER JOIN customers ON customer_id = customers.id WHERE items.id = {id}")
+
+    @staticmethod
+    def save_rented(values):
+        crud.insert_rent_item(values)

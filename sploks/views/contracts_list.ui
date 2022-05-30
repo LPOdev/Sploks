@@ -38,7 +38,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Pas rendu</string>
+       <string>En Retard</string>
       </property>
      </widget>
     </item>

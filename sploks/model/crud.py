@@ -1,3 +1,4 @@
+from os import sep
 from const import *
 
 cur = con.cursor()
@@ -91,14 +92,14 @@ def createOne(table, columns, values):
     :return: The last row id of the table.
     """
     try:
-        query = f"INSERT INTO {table} ({columns}) VALUES ({values})"
-        cur.execute(query)
+        query = f"INSERT INTO {table} ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(query, values)
         con.commit()
-        return cur.getlastrowid()
+        return cur.lastrowid
     except mysql.connector.Error as sqlError:
         print(sqlError)
     except:
-        "Unknown error"
+        return "Unknown error"
 
 
 def selectOneWithParams(columns, table, params):
@@ -153,6 +154,17 @@ def selectDistinct(columns, table, params):
         query = f"SELECT DISTINCT {columns} FROM {table} {params}"
         cur.execute(query)
         return cur.fetchall()
+    except mysql.connector.Error as sqlError:
+        print(sqlError)
+    except:
+        "Unknown error"
+
+def insert_rent_item(values):
+    try:
+        columns = "item_id, contract_id, duration_id, gearstate_id, price, comment, linenb, partialreturn"
+        query = f"INSERT INTO renteditems ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(query, values)
+        con.commit()
     except mysql.connector.Error as sqlError:
         print(sqlError)
     except:
