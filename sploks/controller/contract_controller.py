@@ -613,6 +613,7 @@ def lock_form():
     wContractForm.lbl_email.setReadOnly(True)
     wContractForm.lbl_town.setReadOnly(True)
     wContractForm.lbl_npa.setReadOnly(True)
+    wContractForm.txt_notes.setReadOnly(True)
 
     wContractForm.lbl_phone.setStyleSheet(readonly_style)
     wContractForm.lbl_phonefix.setStyleSheet(readonly_style)
@@ -620,6 +621,5 @@ def lock_form():
     wContractForm.lbl_email.setStyleSheet(readonly_style)
     wContractForm.lbl_town.setStyleSheet(readonly_style)
     wContractForm.lbl_npa.setStyleSheet(readonly_style)
-
-
+    wContractForm.txt_notes.setStyleSheet("QTextEdit{background-color: rgba(0, 0, 0, 0);}")
     
