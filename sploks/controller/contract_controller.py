@@ -556,11 +556,11 @@ def send_contract():
 
     new_contract.create(new_contract_informations)
 
-    rent_items(new_contract)
+    rent_items(new_contract, wContractForm.drp_service.currentText(), wContractForm.drp_tune.currentText())
 
     wContractForm.btn_print.setHidden(False)
 
-def rent_items(contract):
+def rent_items(contract, help_staff, tune_staff):
     chosen_items = []
 
     for row in range(tbl_items.rowCount()):
@@ -591,7 +591,6 @@ def rent_items(contract):
 
         items_toPrint.append([chosen_items[x][2], chosen_items[x][3], item.geartype_id, chosen_items[x][4], chosen_items[x][6]])
 
-    print()
     global to_print
     to_print = [
         contract.id,
@@ -609,8 +608,8 @@ def rent_items(contract):
         contract.takenon,
         contract.paidon,
         contract.notes,
-        contract.help_staff,
-        contract.tune_staff,
+        help_staff,
+        tune_staff,
         items_toPrint
     ]
 
