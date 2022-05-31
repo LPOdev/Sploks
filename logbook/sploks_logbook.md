@@ -1,6 +1,6 @@
 # Journal de Bord
 ## 02 mai 2022
-Début du projet et réception du cahier des charges. Rencontre avec l'expert n°1 du TPI, il nous a présenter et introduit les régles/demandes de ce TPI. À la fin de la réunion, le cahier des charges à été signé.
+Début du projet et réception du cahier des charges. Rencontre avec l'expert n°1 du TPI, il nous a présenté et introduit les règles/demandes de ce TPI. À la fin de la réunion, le cahier des charges a été signé.
 
 ## 06 mai 2022
 Sprint 1 Review - Réunion présentielle avec Monsieur Xavier Carrel.
@@ -31,3 +31,18 @@ Sprint 3 Review- Réunion présentielle avec Monsieur Xavier Carrel.
 
 Une correction à apporter:
 - Dans la liste de choix d'articles, ne pas afficher les articles dont le status est "Terminé"
+
+## 22 mai 2022
+J'ai subi une fracture au pied droit, ce qui m'a privé de me déplacer en classe pour travailler.
+Avec l'accord du chef de projet, j'ai pu avancer sur mon projet et télétravail.
+
+## 31 mai 2022
+Sprint 4 Review- Réunion présentielle avec Monsieur Xavier Carrel.
+
+1 User Story validée et terminée:
+- Lister les retours en retard
+
+1 User Story avec un test qui a échoué:
+- Conclure le contrat: Il faut vérifier que les champs on bien étés modifiés avant de pouvoir appuyer sur le bouton conclure.
+
+Suite à ma fracture, je dois m'absenter aux 2 périodes de l'après-midi pour aller à un rdv médical. Le rendu final de mon projet s'effectué donc en fin de matinée.

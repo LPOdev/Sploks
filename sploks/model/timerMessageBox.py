@@ -29,6 +29,13 @@ class TimerMessageBox(QtWidgets.QMessageBox):
         It takes no arguments (except self) and returns nothing. 
         called when the class is instantiated. 
         It changes the content of the window. 
+        It waits one second and then closes the window.
+        """
+        """
+        The function is a method of the class. 
+        It takes no arguments (except self) and returns nothing. 
+        called when the class is instantiated. 
+        It changes the content of the window. 
         It waits one second and then closes the window
         """
         self.time_to_wait -= 1

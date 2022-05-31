@@ -24,6 +24,13 @@ class Helpers:
     
     @staticmethod
     def removeHours(date):
+        """
+        It takes a date in the format of 'YYYY-MM-DD HH:MM:SS' and returns it in the format of
+        'DD.MM.YYYY'
+        
+        :param date: the date to be converted
+        :return: A string
+        """
         if date is None:
             return None
         else:
@@ -33,7 +40,12 @@ class Helpers:
 
     @staticmethod
     def dateToSQL(date):
-
+        """
+        It takes a date in the format dd.mm.yyyy and returns it in the format yyyy-mm-dd
+        
+        :param date: the date in the format dd.mm.yyyy
+        :return: The date in the format of the date_sql variable.
+        """
         if date is None:
             return None
         else:

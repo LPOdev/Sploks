@@ -106,6 +106,10 @@ def loadContracts(contracts):
             w_customer_contracts.tableContracts.setItem(row_number, column_number, cell)
 
 def filter_list():
+    """
+    It loops through each row and column of the table and checks if the text in the search box is found
+    in the table. If it is, it shows the row. If not, it hides the row
+    """
     filter_txt = wCustomers.lblSearchBox.text()
 
     for x in range(wCustomers.tableCustomers.rowCount()):

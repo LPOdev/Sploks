@@ -1,7 +1,6 @@
 from const import con
 from model import crud
 
-
 # The Customer class is a blueprint for a customer object
 class Customer:
     def load(self, id):

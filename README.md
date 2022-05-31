@@ -22,6 +22,7 @@ Après avoir installé les programmes au dessus:
     pip install pyqt5
     pip install pyqt5-tools
     pip install mysql-connector-python-rf
+    pip install reportlab
     ```
 
 5. Vous pouvez maintenant fermer le CMD et ouvrir le dossier Sploks avec votre IDE (PyCharm, chez nous).

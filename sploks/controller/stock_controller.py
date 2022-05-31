@@ -135,51 +135,16 @@ def switchEditMode():
         w_item_details.btnSave.setDisabled(True)
         w_item_details.btnEditCancel.setIcon(QtGui.QIcon("views/res/edit_icon.png"))
         w_item_details.btnEditCancel.setIconSize(QtCore.QSize(30,30))
-        w_item_details.lblItemCode.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblSize.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblType.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblBrand.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblModel.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblPrice.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblReturned.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblSerialNumber.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblStock.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
+        normal_mode_style = "QLineEdit{background-color : rgba(0,0,0,0);border: 0px}"
+        w_item_details.lblItemCode.setStyleSheet(normal_mode_style)
+        w_item_details.lblSize.setStyleSheet(normal_mode_style)
+        w_item_details.lblType.setStyleSheet(normal_mode_style)
+        w_item_details.lblBrand.setStyleSheet(normal_mode_style)
+        w_item_details.lblModel.setStyleSheet(normal_mode_style)
+        w_item_details.lblPrice.setStyleSheet(normal_mode_style)
+        w_item_details.lblReturned.setStyleSheet(normal_mode_style)
+        w_item_details.lblSerialNumber.setStyleSheet(normal_mode_style)
+        w_item_details.lblStock.setStyleSheet(normal_mode_style)
 
     else:
         tstEditMode = True
@@ -198,51 +163,16 @@ def switchEditMode():
         w_item_details.btnSave.setDisabled(False)
         w_item_details.btnEditCancel.setIcon(QtGui.QIcon("views/res/cancel_icon.png"))
         w_item_details.btnEditCancel.setIconSize(QtCore.QSize(30,30))
-        w_item_details.lblItemCode.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblSize.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblType.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblBrand.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblModel.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblPrice.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblReturned.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblSerialNumber.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
-        w_item_details.lblStock.setStyleSheet("QLineEdit"
-                        "{"
-                        "background: white;"
-                        "border: 1px solid gray"
-                        "}")
+        mode_edit_style = "QLineEdit{background: white;border: 1px solid gray}"
+        w_item_details.lblItemCode.setStyleSheet()
+        w_item_details.lblSize.setStyleSheet(mode_edit_style)
+        w_item_details.lblType.setStyleSheet(mode_edit_style)
+        w_item_details.lblBrand.setStyleSheet(mode_edit_style)
+        w_item_details.lblModel.setStyleSheet(mode_edit_style)
+        w_item_details.lblPrice.setStyleSheet(mode_edit_style)
+        w_item_details.lblReturned.setStyleSheet(mode_edit_style)
+        w_item_details.lblSerialNumber.setStyleSheet(mode_edit_style)
+        w_item_details.lblStock.setStyleSheet(mode_edit_style)
 
 def insertDetails():
     """
@@ -354,51 +284,15 @@ def saveItemModifications():
         w_item_details.btnSave.setDisabled(True)
         w_item_details.btnEditCancel.setIcon(QtGui.QIcon("views/res/edit_icon.png"))
         w_item_details.btnEditCancel.setIconSize(QtCore.QSize(30,30))
-        w_item_details.lblItemCode.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblSize.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblType.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblBrand.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblModel.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblPrice.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblReturned.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblSerialNumber.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
-        w_item_details.lblStock.setStyleSheet("QLineEdit"
-                        "{"
-                        "background-color : rgba(0,0,0,0);"
-                        "border: 0px"
-                        "}")
+        w_item_details.lblItemCode.setStyleSheet(normal_mode_style)
+        w_item_details.lblSize.setStyleSheet(normal_mode_style)
+        w_item_details.lblType.setStyleSheet(normal_mode_style)
+        w_item_details.lblBrand.setStyleSheet(normal_mode_style)
+        w_item_details.lblModel.setStyleSheet(normal_mode_style)
+        w_item_details.lblPrice.setStyleSheet(normal_mode_style)
+        w_item_details.lblReturned.setStyleSheet(normal_mode_style)
+        w_item_details.lblSerialNumber.setStyleSheet(normal_mode_style)
+        w_item_details.lblStock.setStyleSheet(normal_mode_style)
 
         tmrMsg = TimerMessageBox(1, "Les modifications ont étés enregistrées.")
         tmrMsg.exec_()
