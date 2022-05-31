@@ -865,4 +865,7 @@ def print_contract():
 
     doc.save()
 
-    os.startfile("contrat.pdf")
+    if os.name == "posix":
+        os.system("open contrat.pdf")
+    else:
+        os.startfile("contrat.pdf")
