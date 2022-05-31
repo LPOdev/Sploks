@@ -785,48 +785,34 @@ def print_contract():
     doc.drawString(30, 620, f"Contrat de location {nb_contrat}")
 
     ##### - CLIENT INFORMATION - #####
-    doc.setFont('Helvetica-Bold', 12)
-    doc.drawString(30, 580, f"Nom: {nom}")
-    doc.line(65, 578, 345, 578)
+    doc.setFont('Helvetica', 12)
+    doc.drawString(30, 580, f"{nom} {firstname}")
 
-    doc.drawString(350, 580, f"Prénom: {firstname}")
-    doc.line(400, 578, 550, 578)
+    doc.drawString(30, 560, f"{address}, {npa} {town}")
 
-    doc.drawString(30, 560, f"Adresse: {address}")
-    doc.line(85, 558, 550, 558)
+    doc.drawString(30, 540, f"Tél: {phonefix}")
 
-    doc.drawString(30, 540, f"Ville: {town}")
-    doc.line(60, 538, 345, 538)
+    doc.drawString(350, 540, f"Natel: {phone}")
 
-    doc.drawString(350, 540, f"Code postal: {npa}")
-    doc.line(425, 538, 550, 538)
-
-    doc.drawString(30, 520, f"Tél: {phonefix}")
-    doc.line(55, 518, 345, 518)
-
-    doc.drawString(350, 520, f"Natel: {phone}")
-    doc.line(385, 518, 550, 518)
-
-    doc.drawString(30, 500, f"Email: {email}")
-    doc.line(70, 498, 550, 498)
+    doc.drawString(30, 520, f"{email}")
 
     ##### - DATES - #####
-    doc.drawString(30, 480, f"Date de location: {today}")
+    doc.drawString(30, 500, f"Date de location: {today}")
     #doc.line(130, 478, 345, 478)
 
-    doc.drawString(350, 480, f"Date de retour: {retour}")
+    doc.drawString(350, 500, f"Date de retour: {retour}")
     #doc.line(120, 458, 345, 458)
 
     ##### - ITEMS - #####
     doc.setFont('Helvetica', 10)
 
     # TABLE HEADERS
-    doc.drawString(50, 450, "No")
-    doc.drawString(150, 450, "Objet")
-    doc.drawString(350, 450, "Cat")
-    doc.drawString(390, 450, "Durée")
-    doc.drawString(520, 450, "Montant")
-    row_height = 435
+    doc.drawString(50, 470, "No")
+    doc.drawString(150, 470, "Objet")
+    doc.drawString(350, 470, "Cat")
+    doc.drawString(390, 470, "Durée")
+    doc.drawString(520, 470, "Montant")
+    row_height = 455
 
     # TABLE CONTENT
     for i in range(len(loc_items)):
@@ -861,7 +847,7 @@ def print_contract():
     doc.drawString(30, h-90, "Notes diverses:")
     doc.drawString(40, h-105, f"{notes}")
 
-    hauteur = 150
+    hauteur = 120
 
     message_style = ParagraphStyle('Normal')
 
@@ -873,7 +859,10 @@ def print_contract():
             message.drawOn(doc, 30, hauteur - h)
             hauteur -= h
 
-    doc.drawString(width/6, 600, "Le matériel doit être rendu propre, une surtaxe de Frs 10.- peut être demandée")
+    alert = "<u>Le matériel doit être rendu propre, une surtaxe de Frs 10.- peut être demandée</u>"
+    alert = Paragraph((alert).encode('utf-8'))
+    alert.wrap(500, 15)
+    alert.drawOn(doc, width/6, 600)
 
     doc.save()
 
