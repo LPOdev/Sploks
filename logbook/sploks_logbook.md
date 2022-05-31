@@ -37,4 +37,12 @@ J'ai subi une fracture au pied droit, ce qui m'a privé de me déplacer en class
 Avec l'accord du chef de projet, j'ai pu avancer sur mon projet et télétravail.
 
 ## 31 mai 2022
+Sprint 4 Review- Réunion présentielle avec Monsieur Xavier Carrel.
+
+1 User Story validée et terminée:
+- Lister les retours en retard
+
+1 User Story avec un test qui a échoué:
+- Conclure le contrat: Il faut vérifier que les champs on bien étés modifiés avant de pouvoir appuyer sur le bouton conclure.
+
 Suite à ma fracture, je dois m'absenter aux 2 périodes de l'après-midi pour aller à un rdv médical. Le rendu final de mon projet s'effectué donc en fin de matinée.
