@@ -851,16 +851,15 @@ def print_contract():
 
     message_style = ParagraphStyle('Normal')
 
-    with open('rights.txt') as f:
-        for line in f:
-            message = line.replace('\n', '<br />')
-            message = Paragraph((message).encode('latin1'), message_style)
+    with open('rights.txt', 'r', encoding='utf-8') as f:
+        for message in f:
+            message = Paragraph(message, message_style)
             w, h = message.wrap(500, 15)
             message.drawOn(doc, 30, hauteur - h)
             hauteur -= h
 
     alert = "<u>Le matériel doit être rendu propre, une surtaxe de Frs 10.- peut être demandée</u>"
-    alert = Paragraph((alert).encode('utf-8'))
+    alert = Paragraph(alert)
     alert.wrap(500, 15)
     alert.drawOn(doc, width/6, 600)
 
